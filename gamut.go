@@ -10,31 +10,57 @@ import (
 )
 
 type Palette struct {
-	colors []Color
+	colors map[colorful.Color]Colors
 }
 
 // MixedWith mixes two palettes
-func (g *Palette) MixedWith(p Palette) *Palette {
-	g.colors = append(g.colors, p.colors...)
-	return g
+func (g Palette) MixedWith(p Palette) Palette {
+	np := Palette{}
+	np.AddColors(g.Colors())
+	np.AddColors(p.Colors())
+	return np
 }
 
-// Colors returns the Gamut's palette
-func (g *Palette) Colors() []Color {
-	return g.colors
+// AddColors adds colors to the palette
+func (g *Palette) AddColors(cc Colors) {
+	if g.colors == nil {
+		g.colors = make(map[colorful.Color]Colors)
+	}
+	for _, c := range cc {
+		found := false
+		for _, v := range g.colors[c.Color] {
+			if v.Name == c.Name {
+				found = true
+			}
+		}
+
+		if !found {
+			g.colors[c.Color] = append(g.colors[c.Color], c)
+		}
+	}
+}
+
+// Colors returns the Palette's colors
+func (g Palette) Colors() Colors {
+	var r Colors
+	for _, c := range g.colors {
+		r = append(r, c...)
+	}
+	return r
 }
 
 // Name returns the name of the closest matching color
-func (g *Palette) Name(color color.Color) (Color, float64) {
+func (g Palette) Name(color color.Color) (Colors, float64) {
 	var d float64 = -1
-	var m Color
+	var m Colors
 
-	c, _ := colorful.MakeColor(color)
+	c := colorful.MakeColor(color)
 
 	for _, v := range g.colors {
-		if nd := v.Color.DistanceLab(c); nd < d || d == -1 {
+		if nd := v[0].Color.DistanceLab(c); nd < d || d == -1 {
 			d = nd
-			m = v
+			m = Colors{}
+			m = append(m, v...)
 		}
 	}
 
@@ -42,13 +68,15 @@ func (g *Palette) Name(color color.Color) (Color, float64) {
 }
 
 // Filter returns colors matching name
-func (g *Palette) Filter(name string) []Color {
+func (g Palette) Filter(name string) Colors {
 	s := strings.ToLower(name)
-	var c []Color
+	var c Colors
 
 	for _, v := range g.colors {
-		if strings.Contains(strings.ToLower(v.Name), s) {
-			c = append(c, v)
+		for _, vv := range v {
+			if strings.Contains(strings.ToLower(vv.Name), s) {
+				c = append(c, vv)
+			}
 		}
 	}
 

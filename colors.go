@@ -9,15 +9,22 @@ type Color struct {
 	Color        colorful.Color
 	WikipediaURL string
 }
+type Colors []Color
+
+var (
+	Monokai   Palette
+	Wikipedia Palette
+	Crayola   Palette
+)
 
 func Hex(s string) colorful.Color {
 	c, _ := colorful.Hex(s)
 	return c
 }
 
-var (
-	Monokai = Palette{
-		colors: []Color{
+func init() {
+	Monokai.AddColors(
+		Colors{
 			{"Blue Beyond", Hex("#89BDFF"), ""},
 			{"Urbane Bronze", Hex("#595959"), ""},
 			{"Tricorn Black", Hex("#383830"), ""},
@@ -32,11 +39,10 @@ var (
 			{"Extra White", Hex("#F8F8F2"), ""},
 			{"Spray", Hex("#66D9EF"), ""},
 			{"Tree Poppy", Hex("#FD971F"), ""},
-		},
-	}
+		})
 
-	Crayola = Palette{
-		colors: []Color{
+	Crayola.AddColors(
+		Colors{
 			{"Red", colorful.Color{R: 0.929412, G: 0.039216, B: 0.247059}, ""},
 			{"Maroon", colorful.Color{R: 0.764706, G: 0.129412, B: 0.282353}, ""},
 			{"Scarlet", colorful.Color{R: 0.992157, G: 0.054902, B: 0.207843}, ""},
@@ -217,11 +223,10 @@ var (
 			{"Razzle Dazzle Rose", colorful.Color{R: 0.933333, G: 0.203922, B: 0.823529}, ""},
 			{"Hot Magenta", colorful.Color{R: 1.000000, G: 0.000000, B: 0.800000}, ""},
 			{"Purple Pizzazz", colorful.Color{R: 1.000000, G: 0.000000, B: 0.800000}, ""},
-		},
-	}
+		})
 
-	Wikipedia = Palette{
-		colors: []Color{
+	Wikipedia.AddColors(
+		Colors{
 			{"Absolute Zero", colorful.Color{R: 0.000000, G: 0.282353, B: 0.729412}, ""},
 			{"Acajou", colorful.Color{R: 0.298039, G: 0.184314, B: 0.152941}, ""},
 			{"Acid green", colorful.Color{R: 0.690196, G: 0.749020, B: 0.101961}, ""},
@@ -1831,6 +1836,5 @@ var (
 			{"Zinnwaldite brown", colorful.Color{R: 0.172549, G: 0.086275, B: 0.031373}, ""},
 			{"Zomp", colorful.Color{R: 0.223529, G: 0.654902, B: 0.556863}, ""},
 			{"ZTE Blue", colorful.Color{R: 0.258824, G: 0.525490, B: 0.823529}, ""},
-		},
-	}
-)
+		})
+}
