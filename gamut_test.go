@@ -35,8 +35,8 @@ func TestDistance(t *testing.T) {
 
 func TestColors(t *testing.T) {
 	c := len(Monokai.Colors())
-	if c != 14 {
-		t.Errorf("Expected 14 colors in monokai palette, got %d", c)
+	if c != 17 {
+		t.Errorf("Expected 17 colors in monokai palette, got %d", c)
 	}
 }
 

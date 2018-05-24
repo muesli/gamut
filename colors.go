@@ -28,17 +28,20 @@ func init() {
 			{"Blue Beyond", Hex("#89BDFF"), ""},
 			{"Urbane Bronze", Hex("#595959"), ""},
 			{"Tricorn Black", Hex("#383830"), ""},
-			{"Caviar", Hex("#272822"), ""},
+			{"Caviar Dark", Hex("#141411"), ""},
+			{"Caviar", Hex("#272822"), ""}, // Background
 			{"Soothing White", Hex("#E6E6E6"), ""},
-			{"Center Stage", Hex("#A6E22E"), ""},
-			{"Feverish Pink", Hex("#F92672"), ""},
-			{"Lavish Lavender", Hex("#AE81FF"), ""},
+			{"Center Stage", Hex("#A6E22E"), ""},    // Function, Class
+			{"Feverish Pink", Hex("#F92672"), ""},   // Keyword
+			{"Lavish Lavender", Hex("#AE81FF"), ""}, // Number, constant
 			{"Ice Plant", Hex("#FD5FF1"), ""},
-			{"Funky Yellow", Hex("#E6DB74"), ""},
-			{"Cocoon", Hex("#75715E"), ""},
-			{"Extra White", Hex("#F8F8F2"), ""},
-			{"Spray", Hex("#66D9EF"), ""},
-			{"Tree Poppy", Hex("#FD971F"), ""},
+			{"Funky Yellow", Hex("#E6DB74"), ""}, // String
+			{"Cocoon", Hex("#75715E"), ""},       // Comment
+			{"Extra White", Hex("#F8F8F2"), ""},  // Text
+			{"Spray", Hex("#66D9EF"), ""},        // Type
+			{"Tree Poppy", Hex("#FD971F"), ""},   // Function Argument
+			{"Armadillo", Hex("#49483E"), ""},    // Selection
+			{"El Paso", Hex("#3E3D32"), ""},      // Highlight
 		})
 
 	Crayola.AddColors(
