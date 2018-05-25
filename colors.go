@@ -35,23 +35,23 @@ func Complementary(c colorful.Color) colorful.Color {
 func init() {
 	Monokai.AddColors(
 		Colors{
-			{"Blue Beyond", Hex("#89BDFF"), ""},
-			{"Urbane Bronze", Hex("#595959"), ""},
-			{"Tricorn Black", Hex("#383830"), ""},
-			{"Caviar Dark", Hex("#141411"), ""},
-			{"Caviar", Hex("#272822"), ""}, // Background
-			{"Soothing White", Hex("#E6E6E6"), ""},
+			{"Spray", Hex("#66D9EF"), ""},           // Type
+			{"Tree Poppy", Hex("#FD971F"), ""},      // Function Argument
+			{"Armadillo", Hex("#49483E"), ""},       // Selection
+			{"El Paso", Hex("#3E3D32"), ""},         // Highlight
 			{"Center Stage", Hex("#A6E22E"), ""},    // Function, Class
 			{"Feverish Pink", Hex("#F92672"), ""},   // Keyword
 			{"Lavish Lavender", Hex("#AE81FF"), ""}, // Number, constant
+			{"Funky Yellow", Hex("#E6DB74"), ""},    // String
+			{"Cocoon", Hex("#75715E"), ""},          // Comment
+			{"Extra White", Hex("#F8F8F2"), ""},     // Text
+			{"Caviar", Hex("#272822"), ""},          // Background
+			{"Caviar Dark", Hex("#141411"), ""},
+			{"Blue Beyond", Hex("#89BDFF"), ""},
+			{"Urbane Bronze", Hex("#595959"), ""},
+			{"Tricorn Black", Hex("#383830"), ""},
+			{"Soothing White", Hex("#E6E6E6"), ""},
 			{"Ice Plant", Hex("#FD5FF1"), ""},
-			{"Funky Yellow", Hex("#E6DB74"), ""}, // String
-			{"Cocoon", Hex("#75715E"), ""},       // Comment
-			{"Extra White", Hex("#F8F8F2"), ""},  // Text
-			{"Spray", Hex("#66D9EF"), ""},        // Type
-			{"Tree Poppy", Hex("#FD971F"), ""},   // Function Argument
-			{"Armadillo", Hex("#49483E"), ""},    // Selection
-			{"El Paso", Hex("#3E3D32"), ""},      // Highlight
 		})
 
 	Crayola.AddColors(
