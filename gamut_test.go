@@ -43,23 +43,31 @@ func TestDistance(t *testing.T) {
 }
 
 func TestColors(t *testing.T) {
-	c := len(Monokai.Colors())
-	if c != 17 {
-		t.Errorf("Expected 17 colors in monokai palette, got %d", c)
+	c := len(Crayola.Colors())
+	exp := 180
+	if c != exp {
+		t.Errorf("Expected %d colors in Crayola palette, got %d", exp, c)
 	}
 }
 
 func TestMixing(t *testing.T) {
-	p := Monokai.MixedWith(Crayola)
+	p := Crayola.MixedWith(Resene)
 	c := len(p.Colors())
-	exp := len(Monokai.Colors()) + len(Crayola.Colors())
+	exp := len(Crayola.Colors()) + len(Resene.Colors())
 	if c != exp {
 		t.Errorf("Expected %d colors in palette mix, got %d", exp, c)
 	}
 
-	p = Monokai.MixedWith(Monokai)
+	p = Wikipedia.MixedWith(Crayola)
 	c = len(p.Colors())
-	exp = len(Monokai.Colors())
+	exp = 1766 // some Crayola colors are duped in the Wikipedia palette
+	if c != exp {
+		t.Errorf("Expected %d colors in palette mix, got %d", exp, c)
+	}
+
+	p = Crayola.MixedWith(Crayola)
+	c = len(p.Colors())
+	exp = len(Crayola.Colors())
 	if c != exp {
 		t.Errorf("Expected %d colors in palette mix, got %d", exp, c)
 	}
@@ -67,7 +75,16 @@ func TestMixing(t *testing.T) {
 
 func TestFilter(t *testing.T) {
 	cc := Wikipedia.Filter("Pastel")
-	if len(cc) != 16 {
-		t.Errorf("Expected 16 results, got %d", len(cc))
+	exp := 16
+	if len(cc) != exp {
+		t.Errorf("Expected %d results, got %d", exp, len(cc))
+	}
+}
+
+func TestThemeColors(t *testing.T) {
+	cc := MonokaiTheme.Colors()
+	exp := 6
+	if len(cc) != exp {
+		t.Errorf("Expected %d results, got %d", exp, len(cc))
 	}
 }
