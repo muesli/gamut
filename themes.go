@@ -1,6 +1,6 @@
 package gamut
 
-import colorful "github.com/lucasb-eyer/go-colorful"
+import "image/color"
 
 // A Theme is a collection of colors mapped to a role (or function)
 type Theme struct {
@@ -19,7 +19,7 @@ var (
 
 // Colors returns all (unique) colors used in this theme
 func (t Theme) Colors() Colors {
-	cm := make(map[colorful.Color]Color)
+	cm := make(map[color.Color]Color)
 	for _, c := range t.colors {
 		if _, ok := cm[c.Color]; !ok {
 			cm[c.Color] = c

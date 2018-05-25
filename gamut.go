@@ -11,7 +11,7 @@ import (
 
 // A Palette is a collection of colors
 type Palette struct {
-	colors map[colorful.Color]Colors
+	colors map[color.Color]Colors
 }
 
 // MixedWith mixes two palettes
@@ -25,7 +25,7 @@ func (g Palette) MixedWith(p Palette) Palette {
 // AddColors adds colors to the palette
 func (g *Palette) AddColors(cc Colors) {
 	if g.colors == nil {
-		g.colors = make(map[colorful.Color]Colors)
+		g.colors = make(map[color.Color]Colors)
 	}
 
 	for _, c := range cc {
@@ -57,10 +57,11 @@ func (g Palette) Name(color color.Color) (Colors, float64) {
 	var d float64 = -1
 	var m Colors
 
-	c := colorful.MakeColor(color)
+	c, _ := colorful.MakeColor(color)
 
 	for _, v := range g.colors {
-		if nd := v[0].Color.DistanceLab(c); nd < d || d == -1 {
+		col, _ := colorful.MakeColor(v[0].Color)
+		if nd := col.DistanceLab(c); nd < d || d == -1 {
 			d = nd
 			m = Colors{}
 			m = append(m, v...)

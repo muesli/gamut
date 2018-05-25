@@ -8,9 +8,10 @@ import (
 
 func TestComplementary(t *testing.T) {
 	c, _ := colorful.Hex("#2F1B82")
+	cc, _ := colorful.MakeColor(Complementary(c))
 	exp, _ := colorful.Hex("#6E821B")
 
-	if cc := Complementary(c); cc.Hex() != exp.Hex() {
+	if cc.Hex() != exp.Hex() {
 		t.Errorf("Expected complementary color %v, got %v", exp.Hex(), cc.Hex())
 	}
 }
