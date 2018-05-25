@@ -1,5 +1,6 @@
 package gamut
 
+// Color Roles in a Theme
 const (
 	Foreground = iota
 	Background
@@ -10,4 +11,5 @@ const (
 	Highlight
 )
 
+// Role is used for type-safety
 type Role int

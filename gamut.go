@@ -9,6 +9,7 @@ import (
 	"github.com/xrash/smetrics"
 )
 
+// A Palette is a collection of colors
 type Palette struct {
 	colors map[colorful.Color]Colors
 }
