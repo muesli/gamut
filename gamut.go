@@ -27,11 +27,13 @@ func (g *Palette) AddColors(cc Colors) {
 	if g.colors == nil {
 		g.colors = make(map[colorful.Color]Colors)
 	}
+
 	for _, c := range cc {
 		found := false
 		for _, v := range g.colors[c.Color] {
 			if v.Name == c.Name {
 				found = true
+				break
 			}
 		}
 
