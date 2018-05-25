@@ -6,6 +6,15 @@ import (
 	colorful "github.com/lucasb-eyer/go-colorful"
 )
 
+func TestComplementary(t *testing.T) {
+	c, _ := colorful.Hex("#2F1B82")
+	exp, _ := colorful.Hex("#6E821B")
+
+	if cc := Complementary(c); cc.Hex() != exp.Hex() {
+		t.Errorf("Expected complementary color %v, got %v", exp.Hex(), cc.Hex())
+	}
+}
+
 func TestDistance(t *testing.T) {
 	tt := []struct {
 		Hex string

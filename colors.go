@@ -22,6 +22,16 @@ func Hex(s string) colorful.Color {
 	return c
 }
 
+func Complementary(c colorful.Color) colorful.Color {
+	h, s, l := c.Hsl()
+	h -= 180
+	if h < 0 {
+		h += 360
+	}
+
+	return colorful.Hsl(h, s, l)
+}
+
 func init() {
 	Monokai.AddColors(
 		Colors{
