@@ -4,24 +4,42 @@ import colorful "github.com/lucasb-eyer/go-colorful"
 
 // A Theme is a collection of colors mapped to a role (or function)
 type Theme struct {
-	Name   string
-	Colors map[Role]Color
+	Name string
+
+	colors map[Role]Color
 }
 
 // MonokaiTheme is a popular theme used for syntax highlighting
 var (
 	MonokaiTheme = Theme{
 		Name:   "monokai",
-		Colors: make(map[Role]Color),
+		colors: make(map[Role]Color),
 	}
 )
 
+// Colors returns all (unique) colors used in this theme
+func (t Theme) Colors() Colors {
+	cm := make(map[colorful.Color]Color)
+	for _, c := range t.colors {
+		if _, ok := cm[c.Color]; !ok {
+			cm[c.Color] = c
+		}
+	}
+
+	var cc Colors
+	for _, c := range cm {
+		cc = append(cc, c)
+	}
+
+	return cc
+}
+
 func init() {
-	MonokaiTheme.Colors[Foreground] = Monokai.Filter("Extra White")[0]
-	MonokaiTheme.Colors[Background] = Monokai.Filter("Caviar")[0]
-	MonokaiTheme.Colors[Base] = Monokai.Filter("Caviar")[0]
-	MonokaiTheme.Colors[AlternateBase] = Monokai.Filter("Caviar Dark")[0]
-	MonokaiTheme.Colors[Text] = Monokai.Filter("Cocoon")[0]
-	MonokaiTheme.Colors[Selection] = Monokai.Filter("Armadillo")[0]
-	MonokaiTheme.Colors[Highlight] = Monokai.Filter("El Paso")[0]
+	MonokaiTheme.colors[Foreground] = Monokai.Filter("Extra White")[0]
+	MonokaiTheme.colors[Background] = Monokai.Filter("Caviar")[0]
+	MonokaiTheme.colors[Base] = Monokai.Filter("Caviar")[0]
+	MonokaiTheme.colors[AlternateBase] = Monokai.Filter("Caviar Dark")[0]
+	MonokaiTheme.colors[Text] = Monokai.Filter("Cocoon")[0]
+	MonokaiTheme.colors[Selection] = Monokai.Filter("Armadillo")[0]
+	MonokaiTheme.colors[Highlight] = Monokai.Filter("El Paso")[0]
 }
