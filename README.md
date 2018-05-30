@@ -22,7 +22,7 @@ colors, err := gamut.Generate(8, gamut.PastelGenerator{})
 // returns a slice of 8 pastel colors
 ```
 
-![Pastel Palette](https://github.com/muesli/kmeans/blob/master/docs/palette_pastel.png)
+![Pastel Palette](https://github.com/muesli/gamut/blob/master/docs/palette_pastel.png)
 
 Instead of `gamut.PastelGenerator` you can also use `gamut.WarmGenerator` or
 `gamut.HappyGenerator`.
