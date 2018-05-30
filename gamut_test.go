@@ -7,6 +7,18 @@ import (
 	colorful "github.com/lucasb-eyer/go-colorful"
 )
 
+func TestGenerator(t *testing.T) {
+	cc, err := Generate(8, PastelGenerator{})
+	if err != nil {
+		t.Error(err)
+		return
+	}
+
+	if len(cc) != 8 {
+		t.Errorf("Expected 8 colors from generator, got %d", len(cc))
+	}
+}
+
 func TestWarmCool(t *testing.T) {
 	cols := []struct {
 		hex  string
@@ -72,7 +84,31 @@ func TestHueOffsets(t *testing.T) {
 	for coli, col := range cols {
 		cc := col.fn(Hex(col.hex))
 
-		for i := 0; i < len(cc); i++ {
+		for i := 0; i < len(col.exp); i++ {
+			colc, _ := colorful.MakeColor(cc[i])
+			expc, _ := colorful.Hex(col.exp[i])
+			if expc.Hex() != colc.Hex() {
+				t.Errorf("Expected offset color %v, got %v (iteration %d)", expc.Hex(), colc.Hex(), coli)
+			}
+		}
+	}
+}
+
+func TestLightnessOffsets(t *testing.T) {
+	cols := []struct {
+		fn    func(color.Color, int) []color.Color
+		count int
+		hex   string
+		exp   []string
+	}{
+		{Shades, 8, "#2f1b82", []string{"#291872", "#231462", "#1d1151", "#180d41", "#120a31", "#0c0721", "#060310", "#000000"}},
+		{Tints, 8, "#2f1b82", []string{"#3c23a7", "#492acb", "#6448d9", "#836de1", "#a291e8", "#c1b6f0", "#e0daf7", "#ffffff"}},
+	}
+
+	for coli, col := range cols {
+		cc := col.fn(Hex(col.hex), col.count)
+
+		for i := 0; i < len(col.exp); i++ {
 			colc, _ := colorful.MakeColor(cc[i])
 			expc, _ := colorful.Hex(col.exp[i])
 			if expc.Hex() != colc.Hex() {
