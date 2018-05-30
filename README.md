@@ -2,7 +2,7 @@
 
 Go package to generate and manage color palettes & schemes
 
-## Available Palettes
+## Palettes
 
 | Name      | Colors | Source                                                      |
 | --------- | ------:| ----------------------------------------------------------- |
@@ -49,7 +49,7 @@ p = gamut.Crayola.MixedWith(gamut.Monokai)
 // returns a palette with all colors from both Crayola and Monokai
 ```
 
-## Available Themes
+## Themes
 
 | Name    | Colors |
 | ------- | ------:|
@@ -63,7 +63,7 @@ p = gamut.Crayola.MixedWith(gamut.Monokai)
 color = gamut.MonokaiTheme.Role(gamut.Foreground)
 ```
 
-Defined roles are `Foreground`, `Background`, `Base`, `AlternateBase`, `Text`,
+Available roles are `Foreground`, `Background`, `Base`, `AlternateBase`, `Text`,
 `Selection`, `Highlight`.
 
 ## Colors
