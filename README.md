@@ -19,12 +19,6 @@ for i, c := range cc {
 Instead of `gamut.PastelGenerator` you can also use `gamut.WarmGenerator` or
 `gamut.HappyGenerator`.
 
-### Complementary Colors
-
-```go
-c := gamut.Complementary(color)
-```
-
 ### Name A Color
 
 ```go
@@ -36,17 +30,58 @@ name, distance := gamut.Wikipedia.Name(color)
 ### Retrieving Colors
 
 ```go
-cc := gamut.Crayola.Filter("Red")
+cc = gamut.Crayola.Filter("Red")
 // cc is a slice of all "Red" colors in the Crayola palette
-
-cc := gamut.Crayola.Colors()
+cc = gamut.Crayola.Colors()
 // cc is a slice of all colors in the Crayola palette
+```
+
+### Complementary Colors
+
+```go
+c = gamut.Complementary(color)
+```
+
+### Contrast Colors
+
+```go
+c = gamut.Contrast(color)
+```
+
+### Warm/Cool Colors
+
+```go
+b = gamut.Warm(color)
+b = gamut.Cool(color)
+// either true or false
+```
+
+### Hue Offsets
+
+```go
+cc = gamut.Triadic(color)
+// slice of triadic colors
+cc = gamut.Quadratic(color)
+// slice of quadratic colors
+cc = gamut.Analogous(color)
+// slice of analogous colors
+cc = gamut.SplitComplementary(color)
+// slice of split-complementary colors
+```
+
+### Shades & Tints
+
+```go
+cc = gamut.Shades(color, 8)
+// slice of 8 shades, from color to black
+cc = gamut.Tints(color, 8)
+// slice of 8 tints, from color to white
 ```
 
 ### Mixing Palettes
 
 ```go
-p := gamut.Crayola.MixedWith(gamut.Monokai)
+p = gamut.Crayola.MixedWith(gamut.Monokai)
 ```
 
 ## Development
