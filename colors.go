@@ -136,7 +136,7 @@ func Tones(c color.Color, count int) []color.Color {
 
 	var cc []color.Color
 	for i := 1; i <= count; i++ {
-		cc = append(cc, col.BlendLab(grey, dl*float64(i)))
+		cc = append(cc, col.BlendLab(grey, dl*float64(i)).Clamped())
 	}
 
 	return cc
