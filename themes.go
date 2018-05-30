@@ -17,6 +17,11 @@ var (
 	}
 )
 
+// Role returns the theme's color for a specific role
+func (t Theme) Role(r Role) Color {
+	return t.colors[r]
+}
+
 // Colors returns all (unique) colors used in this theme
 func (t Theme) Colors() Colors {
 	cm := make(map[color.Color]Color)
