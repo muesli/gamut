@@ -6,14 +6,14 @@ Go package to generate and manage color palettes & schemes
 
 | Name      | Colors | Source                                                      |
 | --------- | ------:| ----------------------------------------------------------- |
-| Wikipedia | 1609   | https://en.wikipedia.org/wiki/List_of_colors_(compact)      |
-| Crayola   | 180    | https://en.wikipedia.org/wiki/List_of_Crayola_crayon_colors |
-| Resene    | 759    | http://www.resene.co.nz                                     |
-| Monokai   | 17     |                                                             |
+| Wikipedia |   1609 | https://en.wikipedia.org/wiki/List_of_colors_(compact)      |
+| Crayola   |    180 | https://en.wikipedia.org/wiki/List_of_Crayola_crayon_colors |
+| Resene    |    759 | http://www.resene.co.nz                                     |
+| Monokai   |     17 |                                                             |
 
-## Examples
+### Examples
 
-### Generating Color Palettes
+#### Generating Color Palettes
 
 ```go
 import "github.com/muesli/gamut"
@@ -25,7 +25,7 @@ colors, err := gamut.Generate(8, gamut.PastelGenerator{})
 Instead of `gamut.PastelGenerator` you can also use `gamut.WarmGenerator` or
 `gamut.HappyGenerator`.
 
-### Name A Color
+#### Name A Color
 
 ```go
 name, distance := gamut.Wikipedia.Name(color)
@@ -33,7 +33,7 @@ name, distance := gamut.Wikipedia.Name(color)
 // distance between 0.0 and 1.0
 ```
 
-### Retrieving Colors
+#### Retrieving Colors
 
 ```go
 colors = gamut.Crayola.Filter("Red")
@@ -42,19 +42,47 @@ colors = gamut.Crayola.Colors()
 // returns a slice of all colors in the Crayola palette
 ```
 
-### Complementary Colors
+#### Mixing Palettes
+
+```go
+p = gamut.Crayola.MixedWith(gamut.Monokai)
+// returns a palette with all colors from both Crayola and Monokai
+```
+
+## Available Themes
+
+| Name    | Colors |
+| ------- | ------:|
+| Monokai |      9 |
+
+### Examples
+
+#### Roles
+
+```go
+color = gamut.MonokaiTheme.Role(gamut.Foreground)
+```
+
+Defined roles are `Foreground`, `Background`, `Base`, `AlternateBase`, `Text`,
+`Selection`, `Highlight`.
+
+## Colors
+
+### Examples
+
+#### Complementary Colors
 
 ```go
 c = gamut.Complementary(color)
 ```
 
-### Contrast Colors
+#### Contrast Colors
 
 ```go
 c = gamut.Contrast(color)
 ```
 
-### Warm/Cool Colors
+#### Warm/Cool Colors
 
 ```go
 b = gamut.Warm(color)
@@ -62,7 +90,7 @@ b = gamut.Cool(color)
 // either true or false
 ```
 
-### Hue Offsets
+#### Hue Offsets
 
 ```go
 colors = gamut.Triadic(color)
@@ -75,20 +103,13 @@ colors = gamut.SplitComplementary(color)
 // slice of split-complementary colors
 ```
 
-### Shades & Tints
+#### Shades & Tints
 
 ```go
 colors = gamut.Shades(color, 8)
 // returns a slice of 8 shades, from color to black
 colors = gamut.Tints(color, 8)
 // returns a slice of 8 tints, from color to white
-```
-
-### Mixing Palettes
-
-```go
-p = gamut.Crayola.MixedWith(gamut.Monokai)
-// returns a palette with all colors from both Crayola and Monokai
 ```
 
 ## Development
