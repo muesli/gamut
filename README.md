@@ -8,7 +8,6 @@ Go package to generate and manage color palettes & schemes
 
 ```go
 import "github.com/muesli/gamut"
-)
 
 cc, err := gamut.Generate(8, gamut.PastelGenerator{})
 for i, c := range cc {
