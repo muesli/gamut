@@ -100,7 +100,7 @@ func Shades(c color.Color, count int) []color.Color {
 	col, _ := colorful.MakeColor(c)
 	h, s, l := col.Hsl()
 
-	dl := l / float64(count)
+	dl := l / float64(count+1)
 
 	var cc []color.Color
 	for i := 1; i <= count; i++ {
@@ -116,7 +116,7 @@ func Tints(c color.Color, count int) []color.Color {
 	col, _ := colorful.MakeColor(c)
 	h, s, l := col.Hsl()
 
-	dl := (1.0 - l) / float64(count)
+	dl := (1.0 - l) / float64(count+1)
 
 	var cc []color.Color
 	for i := 1; i <= count; i++ {
