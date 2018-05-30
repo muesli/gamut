@@ -125,6 +125,8 @@ colors = gamut.Tints(color, 8)
 // returns a slice of 8 tints, from color to white
 ```
 
+![Shades and Tints](https://github.com/muesli/gamut/blob/master/docs/shades_tints.png)
+
 ## Development
 
 [![GoDoc](https://godoc.org/github.com/golang/gddo?status.svg)](https://godoc.org/github.com/muesli/gamut)
