@@ -127,6 +127,21 @@ func Tints(c color.Color, count int) []color.Color {
 	return cc
 }
 
+// Tones returns the specified amount of a color's tone
+func Tones(c color.Color, count int) []color.Color {
+	col, _ := colorful.MakeColor(c)
+	grey := colorful.Color{0.5, 0.5, 0.5}
+
+	dl := 1.0 / float64(count+1)
+
+	var cc []color.Color
+	for i := 1; i <= count; i++ {
+		cc = append(cc, col.BlendLab(grey, dl*float64(i)))
+	}
+
+	return cc
+}
+
 // Cool returns whether a color is considered to have a cool temperature
 func Cool(c color.Color) bool {
 	col, _ := colorful.MakeColor(c)

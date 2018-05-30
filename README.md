@@ -116,13 +116,15 @@ colors = gamut.SplitComplementary(color)
 // slice of split-complementary colors
 ```
 
-#### Shades & Tints
+#### Shades, Tints & Tones
 
 ```go
 colors = gamut.Shades(color, 8)
 // returns a slice of 8 shades, from color to black
 colors = gamut.Tints(color, 8)
 // returns a slice of 8 tints, from color to white
+colors = gamut.Tones(color, 8)
+// returns a slice of 8 tones, from color to grey
 ```
 
 ![Shades and Tints](https://github.com/muesli/gamut/blob/master/docs/shades_tints.png)
