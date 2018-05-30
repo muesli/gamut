@@ -82,6 +82,24 @@ func TestHueOffsets(t *testing.T) {
 	}
 }
 
+func TestTetradic(t *testing.T) {
+	c1, _ := colorful.Hex("#2f1b82")
+	c2 := HueOffset(c1, 60)
+	exp1, _ := colorful.Hex("#6e821b")
+	exp2, _ := colorful.Hex("#1b822f")
+
+	tc := Tetradic(c1, c2)
+	t1, _ := colorful.MakeColor(tc[0])
+	t2, _ := colorful.MakeColor(tc[1])
+
+	if t1.Hex() != exp1.Hex() {
+		t.Errorf("Expected first tetradic color %v, got %v", exp1.Hex(), t1.Hex())
+	}
+	if t2.Hex() != exp2.Hex() {
+		t.Errorf("Expected second tetradic color %v, got %v", exp2.Hex(), t2.Hex())
+	}
+}
+
 func TestDistance(t *testing.T) {
 	tt := []struct {
 		Hex string
