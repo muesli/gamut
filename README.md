@@ -99,6 +99,8 @@ colors = gamut.Triadic(color)
 // slice of triadic colors
 colors = gamut.Quadratic(color)
 // slice of quadratic colors
+colors = gamut.Tetradic(color1, color2)
+// slice of tetradic colors
 colors = gamut.Analogous(color)
 // slice of analogous colors
 colors = gamut.SplitComplementary(color)
