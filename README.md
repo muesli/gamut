@@ -72,6 +72,15 @@ Available roles are `Foreground`, `Background`, `Base`, `AlternateBase`, `Text`,
 
 ### Examples
 
+#### Lighter/Darker Colors
+
+```go
+c = gamut.Darker(color, 0.1)
+// returns a 10% darker version of color
+c = gamut.Lighter(color, 0.3)
+// returns a 30% lighter version of color
+```
+
 #### Complementary Colors
 
 ```go

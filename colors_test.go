@@ -27,6 +27,28 @@ func TestWarmCool(t *testing.T) {
 	}
 }
 
+func TestLightness(t *testing.T) {
+	cols := []struct {
+		fn      func(color.Color, float64) color.Color
+		percent float64
+		hex     string
+		exp     string
+	}{
+		{Lighter, 0.1, "#2f1b82", "#341e8f"},
+		{Darker, 0.3, "#2f1b82", "#21135b"},
+	}
+
+	for _, col := range cols {
+		c, _ := colorful.Hex(col.hex)
+		cc, _ := colorful.MakeColor(col.fn(c, col.percent))
+		exp, _ := colorful.Hex(col.exp)
+
+		if cc.Hex() != exp.Hex() {
+			t.Errorf("Expected different color %v, got %v", exp.Hex(), cc.Hex())
+		}
+	}
+}
+
 func TestComplementary(t *testing.T) {
 	c, _ := colorful.Hex("#2f1b82")
 	cc, _ := colorful.MakeColor(Complementary(c))

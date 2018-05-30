@@ -139,3 +139,19 @@ func Cool(c color.Color) bool {
 func Warm(c color.Color) bool {
 	return !Cool(c)
 }
+
+// Lighter returns a lighter version of the specified color
+func Lighter(c color.Color, percent float64) color.Color {
+	col, _ := colorful.MakeColor(c)
+	h, s, l := col.Hsl()
+
+	return colorful.Hsl(h, s, l+(l*percent))
+}
+
+// Darker returns a darker version of the specified color
+func Darker(c color.Color, percent float64) color.Color {
+	col, _ := colorful.MakeColor(c)
+	h, s, l := col.Hsl()
+
+	return colorful.Hsl(h, s, l-(l*percent))
+}
