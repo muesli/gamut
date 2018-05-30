@@ -34,7 +34,7 @@ func main() {
 	buffer := bytes.NewBuffer([]byte{})
 	buffer.Write([]byte(header))
 
-	cc, err := gamut.Generate(8, gamut.Pastel{})
+	cc, err := gamut.Generate(8, gamut.PastelGenerator{})
 	if err != nil {
 		panic(err)
 	}
