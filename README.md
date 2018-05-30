@@ -10,13 +10,14 @@ Go package to generate and manage color palettes & schemes
 import "github.com/muesli/gamut"
 )
 
-cc, err := gamut.Generate(8, gamut.Pastel{})
+cc, err := gamut.Generate(8, gamut.PastelGenerator{})
 for i, c := range cc {
 	fmt.Printf("Color #%d: %s\n", i, c)
 }
 ```
 
-Instead of `gamut.Pastel` you can also use `gamut.Warm` or `gamut.Happy`.
+Instead of `gamut.PastelGenerator` you can also use `gamut.WarmGenerator` or
+`gamut.HappyGenerator`.
 
 ### Complementary Colors
 

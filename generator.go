@@ -7,31 +7,31 @@ import (
 	"github.com/muesli/kmeans"
 )
 
-type ColorChecker interface {
+type ColorGenerator interface {
 	Valid(col colorful.Color) bool
 }
 
-type Warm struct {
+type WarmGenerator struct {
 }
-type Happy struct {
+type HappyGenerator struct {
 }
-type Pastel struct {
+type PastelGenerator struct {
 }
 
-func (cc Warm) Valid(col colorful.Color) bool {
+func (cc WarmGenerator) Valid(col colorful.Color) bool {
 	_, c, l := col.Hcl()
 	return 0.1 <= c && c <= 0.4 && 0.2 <= l && l <= 0.5
 }
-func (cc Happy) Valid(col colorful.Color) bool {
+func (cc HappyGenerator) Valid(col colorful.Color) bool {
 	_, c, l := col.Hcl()
 	return 0.3 <= c && 0.4 <= l && l <= 0.8
 }
-func (cc Pastel) Valid(col colorful.Color) bool {
+func (cc PastelGenerator) Valid(col colorful.Color) bool {
 	_, s, v := col.Hsv()
 	return 0.2 <= s && s <= 0.4 && 0.7 <= v && v <= 1.0
 }
 
-func Generate(count int, checker ColorChecker) ([]color.Color, error) {
+func Generate(count int, checker ColorGenerator) ([]color.Color, error) {
 	// Create data points in the CIE L*a*b color space
 	// l for lightness channel
 	// a, b for color channels
