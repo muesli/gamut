@@ -76,6 +76,9 @@ Available roles are `Foreground`, `Background`, `Base`, `AlternateBase`, `Text`,
 
 #### Lighter/Darker Colors
 
+The `Darker` and `Lighter` functions darken und lighten a given color value by
+a specified percentage, without changing the color's hue.
+
 ```go
 c = gamut.Darker(color, 0.1)
 // returns a 10% darker version of color
@@ -85,11 +88,16 @@ c = gamut.Lighter(color, 0.3)
 
 #### Complementary Colors
 
+The `Complementary` function returns the complementary color for a given color.
+
 ```go
 c = gamut.Complementary(color)
 ```
 
 #### Contrast Colors
+
+The `Contrast` function returns the color with the highest contrast to a given
+color, either black or white.
 
 ```go
 c = gamut.Contrast(color)
@@ -104,6 +112,9 @@ b = gamut.Cool(color)
 ```
 
 #### Hue Offsets
+
+All the following methods return colors of a different hue, but with the same
+lightness and saturation as the given colors.
 
 ```go
 colors = gamut.Triadic(color)
@@ -122,11 +133,11 @@ colors = gamut.SplitComplementary(color)
 
 ```go
 colors = gamut.Shades(color, 8)
-// returns a slice of 8 shades, from color to black
+// returns a slice of 8 shades, from the given color to black
 colors = gamut.Tints(color, 8)
-// returns a slice of 8 tints, from color to white
+// returns a slice of 8 tints, from the given color to white
 colors = gamut.Tones(color, 8)
-// returns a slice of 8 tones, from color to grey
+// returns a slice of 8 tones, from the given color to grey
 ```
 
 ![Shades and Tints](https://github.com/muesli/gamut/blob/master/docs/shades_tints.png)
