@@ -9,10 +9,8 @@ Go package to generate and manage color palettes & schemes
 ```go
 import "github.com/muesli/gamut"
 
-cc, err := gamut.Generate(8, gamut.PastelGenerator{})
-for i, c := range cc {
-	fmt.Printf("Color #%d: %s\n", i, c)
-}
+colors, err := gamut.Generate(8, gamut.PastelGenerator{})
+// returns a slice of 8 pastel colors
 ```
 
 Instead of `gamut.PastelGenerator` you can also use `gamut.WarmGenerator` or
@@ -29,10 +27,10 @@ name, distance := gamut.Wikipedia.Name(color)
 ### Retrieving Colors
 
 ```go
-cc = gamut.Crayola.Filter("Red")
-// cc is a slice of all "Red" colors in the Crayola palette
-cc = gamut.Crayola.Colors()
-// cc is a slice of all colors in the Crayola palette
+colors = gamut.Crayola.Filter("Red")
+// returns a slice of all "Red" colors in the Crayola palette
+colors = gamut.Crayola.Colors()
+// returns a slice of all colors in the Crayola palette
 ```
 
 ### Complementary Colors
@@ -58,29 +56,30 @@ b = gamut.Cool(color)
 ### Hue Offsets
 
 ```go
-cc = gamut.Triadic(color)
+colors = gamut.Triadic(color)
 // slice of triadic colors
-cc = gamut.Quadratic(color)
+colors = gamut.Quadratic(color)
 // slice of quadratic colors
-cc = gamut.Analogous(color)
+colors = gamut.Analogous(color)
 // slice of analogous colors
-cc = gamut.SplitComplementary(color)
+colors = gamut.SplitComplementary(color)
 // slice of split-complementary colors
 ```
 
 ### Shades & Tints
 
 ```go
-cc = gamut.Shades(color, 8)
-// slice of 8 shades, from color to black
-cc = gamut.Tints(color, 8)
-// slice of 8 tints, from color to white
+colors = gamut.Shades(color, 8)
+// returns a slice of 8 shades, from color to black
+colors = gamut.Tints(color, 8)
+// returns a slice of 8 tints, from color to white
 ```
 
 ### Mixing Palettes
 
 ```go
 p = gamut.Crayola.MixedWith(gamut.Monokai)
+// returns a palette with all colors from both Crayola and Monokai
 ```
 
 ## Development
