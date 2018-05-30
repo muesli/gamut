@@ -1,18 +1,84 @@
 package gamut
 
 import (
+	"image/color"
 	"testing"
 
 	colorful "github.com/lucasb-eyer/go-colorful"
 )
 
+func TestWarmCool(t *testing.T) {
+	cols := []struct {
+		hex  string
+		cool bool
+	}{
+		{"#2f1b82", true},
+		{"#ff1b82", false},
+	}
+
+	for _, col := range cols {
+		c, _ := colorful.Hex(col.hex)
+		if Warm(c) == col.cool {
+			t.Errorf("Expected warm for %s to be %t, got %t", col.hex, !col.cool, col.cool)
+		}
+		if Cool(c) != col.cool {
+			t.Errorf("Expected cool for %s to be %t, got %t", col.hex, col.cool, !col.cool)
+		}
+	}
+}
+
 func TestComplementary(t *testing.T) {
-	c, _ := colorful.Hex("#2F1B82")
+	c, _ := colorful.Hex("#2f1b82")
 	cc, _ := colorful.MakeColor(Complementary(c))
-	exp, _ := colorful.Hex("#6E821B")
+	exp, _ := colorful.Hex("#6e821b")
 
 	if cc.Hex() != exp.Hex() {
 		t.Errorf("Expected complementary color %v, got %v", exp.Hex(), cc.Hex())
+	}
+}
+
+func TestContrast(t *testing.T) {
+	cols := []struct {
+		hex      string
+		contrast string
+	}{
+		{"#2f1b82", "#ffffff"},
+		{"#ff1b82", "#000000"},
+	}
+
+	for _, col := range cols {
+		c, _ := colorful.Hex(col.hex)
+		cc, _ := colorful.MakeColor(Contrast(c))
+		exp, _ := colorful.Hex(col.contrast)
+
+		if cc.Hex() != exp.Hex() {
+			t.Errorf("Expected contrast color %v, got %v", exp.Hex(), cc.Hex())
+		}
+	}
+}
+
+func TestHueOffsets(t *testing.T) {
+	cols := []struct {
+		fn  func(color.Color) []color.Color
+		hex string
+		exp []string
+	}{
+		{Triadic, "#2f1b82", []string{"#1b822f", "#822f1b"}},
+		{Quadratic, "#2f1b82", []string{"#1b8263", "#6e821b", "#821b3a"}},
+		{Analogous, "#2f1b82", []string{"#1b3a82", "#621b82"}},
+		{SplitComplementary, "#2f1b82", []string{"#82621b", "#3a821b"}},
+	}
+
+	for coli, col := range cols {
+		cc := col.fn(Hex(col.hex))
+
+		for i := 0; i < len(cc); i++ {
+			colc, _ := colorful.MakeColor(cc[i])
+			expc, _ := colorful.Hex(col.exp[i])
+			if expc.Hex() != colc.Hex() {
+				t.Errorf("Expected offset color %v, got %v (iteration %d)", expc.Hex(), colc.Hex(), coli)
+			}
+		}
 	}
 }
 
