@@ -16,6 +16,19 @@ for i, c := range cc {
 }
 ```
 
+<table width="100%" height="64">
+<tr>
+<td bgcolor="#deaba4" />
+<td bgcolor="#b5c9a7" />
+<td bgcolor="#beeea3" />
+<td bgcolor="#a090e3" />
+<td bgcolor="#b58fb1" />
+<td bgcolor="#b7e1e9" />
+<td bgcolor="#e7a1d7" />
+<td bgcolor="#8fa6c8" />
+</tr>
+</table>
+
 Instead of `gamut.PastelGenerator` you can also use `gamut.WarmGenerator` or
 `gamut.HappyGenerator`.
 
