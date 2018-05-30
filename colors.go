@@ -95,6 +95,7 @@ func Contrast(c color.Color) color.Color {
 	return bf
 }
 
+// Shades returns the specified amount of a color's shades
 func Shades(c color.Color, count int) []color.Color {
 	col, _ := colorful.MakeColor(c)
 	h, s, l := col.Hsl()
@@ -110,6 +111,7 @@ func Shades(c color.Color, count int) []color.Color {
 	return cc
 }
 
+// Tints returns the specified amount of a color's tints
 func Tints(c color.Color, count int) []color.Color {
 	col, _ := colorful.MakeColor(c)
 	h, s, l := col.Hsl()
@@ -125,6 +127,7 @@ func Tints(c color.Color, count int) []color.Color {
 	return cc
 }
 
+// Cool returns whether a color is considered to have a cool temperature
 func Cool(c color.Color) bool {
 	col, _ := colorful.MakeColor(c)
 	h, _, _ := col.Hsl()
@@ -132,6 +135,7 @@ func Cool(c color.Color) bool {
 	return 90 <= h && h < 270
 }
 
+// Warm returns whether a color is considered to have a warm temperature
 func Warm(c color.Color) bool {
 	return !Cool(c)
 }
