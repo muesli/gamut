@@ -2,6 +2,15 @@
 
 Go package to generate and manage color palettes & schemes
 
+## Available Palettes
+
+| Name      | Colors | Source                                                      |
+| --------- | ------:| ----------------------------------------------------------- |
+| Wikipedia | 1609   | https://en.wikipedia.org/wiki/List_of_colors_(compact)      |
+| Crayola   | 180    | https://en.wikipedia.org/wiki/List_of_Crayola_crayon_colors |
+| Resene    | 759    | http://www.resene.co.nz                                     |
+| Monokai   | 17     |                                                             |
+
 ## Examples
 
 ### Generating Color Palettes
