@@ -76,7 +76,7 @@ Available roles are `Foreground`, `Background`, `Base`, `AlternateBase`, `Text`,
 
 #### Lighter/Darker Colors
 
-The `Darker` and `Lighter` functions darken und lighten a given color value by
+The `Darker` and `Lighter` functions darken or lighten a given color value by
 a specified percentage, without changing the color's hue.
 
 ```go
