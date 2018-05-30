@@ -52,6 +52,17 @@ func (g Palette) Colors() Colors {
 	return r
 }
 
+// Clamped expects a slice of colors and returns a slice of the nearest matching
+// colors from the palette
+func (g Palette) Clamped(cc []color.Color) Colors {
+	var r Colors
+	for _, c := range cc {
+		nm, _ := g.Name(c)
+		r = append(r, nm[0])
+	}
+	return r
+}
+
 // Name returns the name of the closest matching color
 func (g Palette) Name(color color.Color) (Colors, float64) {
 	var d float64 = -1

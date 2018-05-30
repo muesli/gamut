@@ -1,6 +1,7 @@
 package gamut
 
 import (
+	"image/color"
 	"testing"
 
 	colorful "github.com/lucasb-eyer/go-colorful"
@@ -29,6 +30,21 @@ func TestDistance(t *testing.T) {
 
 		if m[0].Name != test.Exp {
 			t.Errorf("Expected %v, got %v, distance %f", test.Exp, m, d)
+		}
+	}
+}
+
+func TestClamped(t *testing.T) {
+	cc := []color.Color{Hex("#FFBE00"), Hex("#FB6E79"), Hex("#0095B7")}
+	exp := []color.Color{Hex("#FFBF00"), Hex("#FA6E79"), Hex("#0095B6")}
+
+	c := Wikipedia.Clamped(cc)
+	for i := range c {
+		c1, _ := colorful.MakeColor(c[i].Color)
+		c2, _ := colorful.MakeColor(exp[i])
+
+		if c1.Hex() != c2.Hex() {
+			t.Errorf("Expected %s, got %s", c1.Hex(), c2.Hex())
 		}
 	}
 }

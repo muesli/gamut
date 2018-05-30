@@ -42,6 +42,8 @@ colors = gamut.Crayola.Filter("Red")
 // returns a slice of all "Red" colors in the Crayola palette
 colors = gamut.Crayola.Colors()
 // returns a slice of all colors in the Crayola palette
+colors = gamut.Monokai.Clamped(colors)
+// returns a slice of the nearest matching colors in the Monokai palette
 ```
 
 #### Mixing Palettes
