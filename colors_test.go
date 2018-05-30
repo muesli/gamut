@@ -111,8 +111,8 @@ func TestLightnessOffsets(t *testing.T) {
 		hex   string
 		exp   []string
 	}{
-		{Shades, 8, "#2f1b82", []string{"#291872", "#231462", "#1d1151", "#180d41", "#120a31", "#0c0721", "#060310", "#000000"}},
-		{Tints, 8, "#2f1b82", []string{"#3c23a7", "#492acb", "#6448d9", "#836de1", "#a291e8", "#c1b6f0", "#e0daf7", "#ffffff"}},
+		{Shades, 8, "#2f1b82", []string{"#2a1874", "#251565", "#1f1257", "#1a0f48", "#150c3a", "#10092b", "#0a061d", "#05030e"}},
+		{Tints, 8, "#2f1b82", []string{"#3b22a2", "#4628c3", "#5a3cd7", "#765ddd", "#917de4", "#ad9eeb", "#c8bef2", "#e4dff8"}},
 	}
 
 	for coli, col := range cols {
