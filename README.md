@@ -54,8 +54,8 @@ gamut.Wikipedia.Name(color) // => (name string, distance float64)
 ```go
 gamut.Crayola.Filter("Red") // => []color.Color{...}
 // returns a slice of all "Red" colors in the Crayola palette
-gamut.Crayola.Colors() // => []color.Color{...}
-// returns a slice of all colors in the Crayola palette
+gamut.Resene.Colors() // => []color.Color{...}
+// returns a slice of all colors in the Resene palette
 gamut.Monokai.Clamped(colors) // => []color.Color{...}
 // returns a slice of the nearest matching colors in the Monokai palette
 ```
