@@ -142,7 +142,7 @@ colors = gamut.Shades(color, 8)
 colors = gamut.Tints(color, 8)
 // returns a slice of 8 tints, from the given color to white
 colors = gamut.Tones(color, 8)
-// returns a slice of 8 tones, from the given color to grey
+// returns a slice of 8 tones, from the given color to gray
 ```
 
 ![Shades, Tints and Tones](https://github.com/muesli/gamut/blob/master/docs/shades_tints_tones.png)
