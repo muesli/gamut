@@ -94,6 +94,22 @@ func Contrast(c color.Color) color.Color {
 	return bf
 }
 
+// Monochromatic returns the specified amount of monochromatic colors based on
+// a given color's hues
+func Monochromatic(c color.Color, count int) []color.Color {
+	col, _ := colorful.MakeColor(c)
+
+	h, s, _ := col.Hsl()
+	dl := 1.0 / float64(count+1)
+
+	var cc []color.Color
+	for i := 1; i <= count; i++ {
+		cc = append(cc, colorful.Hsl(h, s, dl*float64(i)).Clamped())
+	}
+
+	return cc
+}
+
 // Blends returns a slice of interpolated colors, blended between two colors
 func Blends(c1, c2 color.Color, count int) []color.Color {
 	col1, _ := colorful.MakeColor(c1)
