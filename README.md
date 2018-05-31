@@ -57,7 +57,7 @@ p = gamut.Crayola.MixedWith(gamut.Monokai)
 
 | Name    | Colors |
 | ------- | ------:|
-| Monokai |      9 |
+| Monokai |      7 |
 
 ### Examples
 
