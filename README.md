@@ -111,9 +111,9 @@ b = gamut.Cool(color)
 // either true or false
 ```
 
-#### Hue Offsets
+#### Around the Color Wheel
 
-All the following methods return colors of a different hue, but with the same
+All the following functions return colors of a different hue, but with the same
 lightness and saturation as the given colors.
 
 ```go
@@ -132,12 +132,21 @@ colors = gamut.SplitComplementary(color)
 #### Shades, Tints & Tones
 
 ```go
+colors = gamut.Monochromatic(color, 8)
+// returns colors of the same hue, but with a different saturation/lightness
 colors = gamut.Shades(color, 8)
 // returns a slice of 8 shades, from the given color to black
 colors = gamut.Tints(color, 8)
 // returns a slice of 8 tints, from the given color to white
 colors = gamut.Tones(color, 8)
 // returns a slice of 8 tones, from the given color to grey
+```
+
+#### Blending Colors
+
+```go
+colors = gamut.Blends(color1, color2, 8)
+// returns a slice of interpolated colors by blending two colors
 ```
 
 ![Shades, Tints and Tones](https://github.com/muesli/gamut/blob/master/docs/shades_tints_tones.png)
