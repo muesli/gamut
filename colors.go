@@ -83,8 +83,8 @@ func Complementary(c color.Color) color.Color {
 // Contrast returns the color with the most contrast (hence either black or white)
 func Contrast(c color.Color) color.Color {
 	col, _ := colorful.MakeColor(c)
-	wf := colorful.Color{1, 1, 1}
-	bf := colorful.Color{0, 0, 0}
+	wf := colorful.Color{R: 1, G: 1, B: 1}
+	bf := colorful.Color{R: 0, G: 0, B: 0}
 
 	_, _, l := col.Hcl()
 	if l < 0.5 {
@@ -128,19 +128,19 @@ func Blends(c1, c2 color.Color, count int) []color.Color {
 // Shades returns the specified amount of a color's shades
 func Shades(c color.Color, count int) []color.Color {
 	col, _ := colorful.MakeColor(c)
-	return Blends(col, colorful.Color{0.0, 0.0, 0.0}, count)
+	return Blends(col, colorful.Color{R: 0.0, G: 0.0, B: 0.0}, count)
 }
 
 // Tints returns the specified amount of a color's tints
 func Tints(c color.Color, count int) []color.Color {
 	col, _ := colorful.MakeColor(c)
-	return Blends(col, colorful.Color{1.0, 1.0, 1.0}, count)
+	return Blends(col, colorful.Color{R: 1.0, G: 1.0, B: 1.0}, count)
 }
 
 // Tones returns the specified amount of a color's tone
 func Tones(c color.Color, count int) []color.Color {
 	col, _ := colorful.MakeColor(c)
-	return Blends(col, colorful.Color{0.5, 0.5, 0.5}, count)
+	return Blends(col, colorful.Color{R: 0.5, G: 0.5, B: 0.5}, count)
 }
 
 // Cool returns whether a color is considered to have a cool temperature
