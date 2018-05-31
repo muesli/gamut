@@ -88,7 +88,7 @@ Available roles are `Foreground`, `Background`, `Base`, `AlternateBase`, `Text`,
 
 ### Examples
 
-#### Lighter/Darker Colors
+#### Around the Color Wheel
 
 The `Darker` and `Lighter` functions darken and lighten respectively a given
 color value by a specified percentage, without changing the color's hue.
@@ -100,15 +100,11 @@ gamut.Lighter(color, 0.3) // => color.Color
 // returns a 30% lighter version of color
 ```
 
-#### Complementary Colors
-
 The `Complementary` function returns the complementary color for a given color.
 
 ```go
 gamut.Complementary(color) // => color.Color
 ```
-
-#### Contrast Colors
 
 The `Contrast` function returns the color with the highest contrast to a given
 color, either black or white.
@@ -116,15 +112,6 @@ color, either black or white.
 ```go
 gamut.Contrast(color) // => color.Color
 ```
-
-#### Warm/Cool Colors
-
-```go
-gamut.Warm(color) // => bool
-gamut.Cool(color) // => bool
-```
-
-#### Around the Color Wheel
 
 All the following functions return colors of a different hue, but with the same
 lightness and saturation as the given colors.
@@ -135,6 +122,13 @@ gamut.Quadratic(color)          // => []color.Color{...}
 gamut.Tetradic(color1, color2)  // => []color.Color{...}
 gamut.Analogous(color)          // => []color.Color{...}
 gamut.SplitComplementary(color) // => []color.Color{...}
+```
+
+#### Warm/Cool Colors
+
+```go
+gamut.Warm(color) // => bool
+gamut.Cool(color) // => bool
 ```
 
 #### Shades, Tints & Tones
