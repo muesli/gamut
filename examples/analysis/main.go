@@ -15,6 +15,7 @@ func main() {
 
 	c, _ := colorful.Hex("#2F1B82")
 
+	htmlgen.Table(buffer, "Monochromatic", gamut.Monochromatic(c, 8))
 	htmlgen.Table(buffer, "Shades", gamut.Shades(c, 8))
 	htmlgen.Table(buffer, "Tints", gamut.Tints(c, 8))
 	htmlgen.Table(buffer, "Tones", gamut.Tones(c, 8))
@@ -23,7 +24,6 @@ func main() {
 	htmlgen.Table(buffer, "Triadic", gamut.Triadic(c))
 	htmlgen.Table(buffer, "Quadratic", gamut.Quadratic(c))
 	htmlgen.Table(buffer, "Tetradic", gamut.Tetradic(c, gamut.HueOffset(c, 60)))
-	htmlgen.Table(buffer, "Monochromatic", gamut.Monochromatic(c, 6))
 
 	htmlgen.Footer(buffer)
 	ioutil.WriteFile("palette.html", buffer.Bytes(), 0644)
