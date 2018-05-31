@@ -2,7 +2,6 @@ package gamut
 
 import (
 	"image/color"
-	"math"
 
 	colorful "github.com/lucasb-eyer/go-colorful"
 )
@@ -95,51 +94,37 @@ func Contrast(c color.Color) color.Color {
 	return bf
 }
 
-// Shades returns the specified amount of a color's shades
-func Shades(c color.Color, count int) []color.Color {
-	col, _ := colorful.MakeColor(c)
-	h, s, l := col.Hsl()
-
-	dl := l / float64(count+1)
-
-	var cc []color.Color
-	for i := 1; i <= count; i++ {
-		nl := math.Max(l-dl*float64(i), 0)
-		cc = append(cc, colorful.Hsl(h, s, nl).Clamped())
-	}
-
-	return cc
-}
-
-// Tints returns the specified amount of a color's tints
-func Tints(c color.Color, count int) []color.Color {
-	col, _ := colorful.MakeColor(c)
-	h, s, l := col.Hsl()
-
-	dl := (1.0 - l) / float64(count+1)
-
-	var cc []color.Color
-	for i := 1; i <= count; i++ {
-		nl := math.Max(l+dl*float64(i), 0)
-		cc = append(cc, colorful.Hsl(h, s, nl).Clamped())
-	}
-
-	return cc
-}
-
-// Tones returns the specified amount of a color's tone
-func Tones(c color.Color, count int) []color.Color {
-	col, _ := colorful.MakeColor(c)
-	grey := colorful.Color{0.5, 0.5, 0.5}
+// Blends returns a slice of interpolated colors, blended between two colors
+func Blends(c1, c2 color.Color, count int) []color.Color {
+	col1, _ := colorful.MakeColor(c1)
+	col2, _ := colorful.MakeColor(c2)
 
 	dl := 1.0 / float64(count+1)
 
 	var cc []color.Color
 	for i := 1; i <= count; i++ {
-		cc = append(cc, col.BlendLab(grey, dl*float64(i)).Clamped())
+		cc = append(cc, col1.BlendLab(col2, dl*float64(i)).Clamped())
 	}
 
 	return cc
+}
+
+// Shades returns the specified amount of a color's shades
+func Shades(c color.Color, count int) []color.Color {
+	col, _ := colorful.MakeColor(c)
+	return Blends(col, colorful.Color{0.0, 0.0, 0.0}, count)
+}
+
+// Tints returns the specified amount of a color's tints
+func Tints(c color.Color, count int) []color.Color {
+	col, _ := colorful.MakeColor(c)
+	return Blends(col, colorful.Color{1.0, 1.0, 1.0}, count)
+}
+
+// Tones returns the specified amount of a color's tone
+func Tones(c color.Color, count int) []color.Color {
+	col, _ := colorful.MakeColor(c)
+	return Blends(col, colorful.Color{0.5, 0.5, 0.5}, count)
 }
 
 // Cool returns whether a color is considered to have a cool temperature
