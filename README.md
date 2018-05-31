@@ -24,7 +24,8 @@ Color Generators, like the provided `PastelGenerator`, `WarmGenerator` or
 generator) color palettes:
 
 ```go
-colors, err := gamut.Generate(8, gamut.PastelGenerator{})
+gamut.Generate(8, gamut.PastelGenerator{})
+// => ([]color.Color{...}, error)
 ```
 
 ![Pastel Palette](https://github.com/muesli/gamut/blob/master/docs/palette_pastel.png)
@@ -32,7 +33,8 @@ colors, err := gamut.Generate(8, gamut.PastelGenerator{})
 The `SimilarHueGenerator` produces colors with a hue similar to a given color:
 
 ```go
-colors, err := gamut.Generate(8, gamut.SimilarHueGenerator{Color: gamut.Hex("#2F1B82")})
+gamut.Generate(8, gamut.SimilarHueGenerator{Color: gamut.Hex("#2F1B82")})
+// => ([]color.Color{...}, error)
 ```
 
 ![Similar Hue Palette](https://github.com/muesli/gamut/blob/master/docs/palette_similarhue.png)
@@ -42,7 +44,7 @@ Using the `ColorGenerator` interface, you can also write your own color generato
 #### Name A Color
 
 ```go
-name, distance := gamut.Wikipedia.Name(color)
+gamut.Wikipedia.Name(color) // => (name string, distance float64)
 // name = "Baby blue"
 // distance between 0.0 and 1.0
 ```
@@ -50,18 +52,18 @@ name, distance := gamut.Wikipedia.Name(color)
 #### Retrieving Colors
 
 ```go
-colors = gamut.Crayola.Filter("Red")
+gamut.Crayola.Filter("Red") // => []color.Color{...}
 // returns a slice of all "Red" colors in the Crayola palette
-colors = gamut.Crayola.Colors()
+gamut.Crayola.Colors() // => []color.Color{...}
 // returns a slice of all colors in the Crayola palette
-colors = gamut.Monokai.Clamped(colors)
+gamut.Monokai.Clamped(colors) // => []color.Color{...}
 // returns a slice of the nearest matching colors in the Monokai palette
 ```
 
 #### Mixing Palettes
 
 ```go
-p = gamut.Crayola.MixedWith(gamut.Monokai)
+gamut.Crayola.MixedWith(gamut.Monokai) // => []gamut.Palette
 // returns a palette with all colors from both Crayola and Monokai
 ```
 
@@ -88,13 +90,13 @@ Available roles are `Foreground`, `Background`, `Base`, `AlternateBase`, `Text`,
 
 #### Lighter/Darker Colors
 
-The `Darker` and `Lighter` functions darken or lighten a given color value by
-a specified percentage, without changing the color's hue.
+The `Darker` and `Lighter` functions darken and lighten respectively a given
+color value by a specified percentage, without changing the color's hue.
 
 ```go
-c = gamut.Darker(color, 0.1)
+gamut.Darker(color, 0.1) // => color.Color
 // returns a 10% darker version of color
-c = gamut.Lighter(color, 0.3)
+gamut.Lighter(color, 0.3) // => color.Color
 // returns a 30% lighter version of color
 ```
 
@@ -103,7 +105,7 @@ c = gamut.Lighter(color, 0.3)
 The `Complementary` function returns the complementary color for a given color.
 
 ```go
-c = gamut.Complementary(color)
+gamut.Complementary(color) // => color.Color
 ```
 
 #### Contrast Colors
@@ -112,15 +114,14 @@ The `Contrast` function returns the color with the highest contrast to a given
 color, either black or white.
 
 ```go
-c = gamut.Contrast(color)
+gamut.Contrast(color) // => color.Color
 ```
 
 #### Warm/Cool Colors
 
 ```go
-b = gamut.Warm(color)
-b = gamut.Cool(color)
-// either true or false
+gamut.Warm(color) // => bool
+gamut.Cool(color) // => bool
 ```
 
 #### Around the Color Wheel
@@ -129,28 +130,23 @@ All the following functions return colors of a different hue, but with the same
 lightness and saturation as the given colors.
 
 ```go
-colors = gamut.Triadic(color)
-// slice of triadic colors
-colors = gamut.Quadratic(color)
-// slice of quadratic colors
-colors = gamut.Tetradic(color1, color2)
-// slice of tetradic colors
-colors = gamut.Analogous(color)
-// slice of analogous colors
-colors = gamut.SplitComplementary(color)
-// slice of split-complementary colors
+gamut.Triadic(color)            // => []color.Color{...}
+gamut.Quadratic(color)          // => []color.Color{...}
+gamut.Tetradic(color1, color2)  // => []color.Color{...}
+gamut.Analogous(color)          // => []color.Color{...}
+gamut.SplitComplementary(color) // => []color.Color{...}
 ```
 
 #### Shades, Tints & Tones
 
 ```go
-colors = gamut.Monochromatic(color, 8)
+gamut.Monochromatic(color, 8) // => []color.Color{...}
 // returns colors of the same hue, but with a different saturation/lightness
-colors = gamut.Shades(color, 8)
+gamut.Shades(color, 8) // => []color.Color{...}
 // returns a slice of 8 shades, from the given color to black
-colors = gamut.Tints(color, 8)
+gamut.Tints(color, 8) // => []color.Color{...}
 // returns a slice of 8 tints, from the given color to white
-colors = gamut.Tones(color, 8)
+gamut.Tones(color, 8) // => []color.Color{...}
 // returns a slice of 8 tones, from the given color to gray
 ```
 
@@ -159,7 +155,7 @@ colors = gamut.Tones(color, 8)
 #### Blending Colors
 
 ```go
-colors = gamut.Blends(color1, color2, 8)
+gamut.Blends(color1, color2, 8) // => []color.Color{...}
 // returns a slice of interpolated colors by blending two colors
 ```
 
