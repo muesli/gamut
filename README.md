@@ -145,14 +145,14 @@ colors = gamut.Tones(color, 8)
 // returns a slice of 8 tones, from the given color to grey
 ```
 
+![Shades, Tints and Tones](https://github.com/muesli/gamut/blob/master/docs/shades_tints_tones.png)
+
 #### Blending Colors
 
 ```go
 colors = gamut.Blends(color1, color2, 8)
 // returns a slice of interpolated colors by blending two colors
 ```
-
-![Shades, Tints and Tones](https://github.com/muesli/gamut/blob/master/docs/shades_tints_tones.png)
 
 ## Development
 
