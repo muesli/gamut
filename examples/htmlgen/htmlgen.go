@@ -5,8 +5,9 @@ import (
 	"fmt"
 	"image/color"
 
-	colorful "github.com/lucasb-eyer/go-colorful"
 	"github.com/muesli/gamut"
+
+	colorful "github.com/lucasb-eyer/go-colorful"
 )
 
 var (
@@ -32,20 +33,24 @@ var (
 	`
 )
 
+// Header writes the HTML header to buffer
 func Header(buffer *bytes.Buffer) {
 	buffer.Write([]byte(header))
 }
 
+// Footer writes the HTML footer to buffer
 func Footer(buffer *bytes.Buffer) {
 	buffer.Write([]byte(footer))
 }
 
+// Cell writes a colored HTML table cell to buffer
 func Cell(buffer *bytes.Buffer, c color.Color) {
 	col, _ := colorful.MakeColor(c)
 	comp, _ := colorful.MakeColor(gamut.Contrast(c))
 	buffer.Write([]byte(fmt.Sprintf(cell, col.Hex(), comp.Hex(), col.Hex())))
 }
 
+// Table writes a palette of colors as an HTML table to buffer
 func Table(buffer *bytes.Buffer, name string, cc []color.Color) {
 	if name != "" {
 		buffer.Write([]byte(fmt.Sprintf(tablecaption, name)))
