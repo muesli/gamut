@@ -19,23 +19,25 @@ import "github.com/muesli/gamut"
 
 #### Generating Color Palettes
 
+Color Generators, like the provided `PastelGenerator`, `WarmGenerator` or
+`HappyGenerator` can produce random (within the color space constraits of the
+generator) color palettes:
+
 ```go
 colors, err := gamut.Generate(8, gamut.PastelGenerator{})
-// returns a slice of 8 pastel colors
 ```
 
 ![Pastel Palette](https://github.com/muesli/gamut/blob/master/docs/palette_pastel.png)
 
+The `SimilarHueGenerator` produces colors with a hue similar to a given color:
+
 ```go
 colors, err := gamut.Generate(8, gamut.SimilarHueGenerator{Color: gamut.Hex("#2F1B82")})
-// returns a slice of 8 colors with a hue similar to the given color
 ```
 
 ![Similar Hue Palette](https://github.com/muesli/gamut/blob/master/docs/palette_similarhue.png)
 
-Instead of `gamut.PastelGenerator` you can also use `gamut.WarmGenerator` or
-`gamut.HappyGenerator`. Using the `ColorGenerator` interface, you can write your
-own color generators.
+Using the `ColorGenerator` interface, you can also write your own color generators.
 
 #### Name A Color
 
