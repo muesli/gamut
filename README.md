@@ -62,9 +62,10 @@ gamut.Monokai.Clamped(colors) // => []color.Color{...}
 
 #### Mixing Palettes
 
+You can combine all colors of two palettes by mixing them:
+
 ```go
-gamut.Crayola.MixedWith(gamut.Monokai) // => []gamut.Palette
-// returns a palette with all colors from both Crayola and Monokai
+gamut.Crayola.MixedWith(gamut.Monokai) // => gamut.Palette
 ```
 
 ## Themes
@@ -91,7 +92,7 @@ Available roles are `Foreground`, `Background`, `Base`, `AlternateBase`, `Text`,
 #### Around the Color Wheel
 
 The `Darker` and `Lighter` functions darken and lighten respectively a given
-color value by a specified percentage, without changing the color's hue.
+color value by a specified percentage, without changing the color's hue:
 
 ```go
 gamut.Darker(color, 0.1) // => color.Color
@@ -100,21 +101,21 @@ gamut.Lighter(color, 0.3) // => color.Color
 // returns a 30% lighter version of color
 ```
 
-The `Complementary` function returns the complementary color for a given color.
+`Complementary` returns the complementary color for a given color:
 
 ```go
 gamut.Complementary(color) // => color.Color
 ```
 
-The `Contrast` function returns the color with the highest contrast to a given
-color, either black or white.
+`Contrast` returns the color with the highest contrast to a given color, either
+black or white:
 
 ```go
 gamut.Contrast(color) // => color.Color
 ```
 
 All the following functions return colors of a different hue, but with the same
-lightness and saturation as the given colors.
+lightness and saturation as the given colors:
 
 ```go
 gamut.Triadic(color)            // => []color.Color{...}
@@ -133,39 +134,45 @@ gamut.Cool(color) // => bool
 
 #### Shades, Tints & Tones
 
+`Monochromatic` returns colors of the same hue, but with a different
+saturation/lightness:
+
 ```go
 gamut.Monochromatic(color, 8) // => []color.Color{...}
-// returns colors of the same hue, but with a different saturation/lightness
 ```
 
 ![Monochromatic Palette](https://github.com/muesli/gamut/blob/master/docs/palette_monochromatic.png)
 
+`Shades` returns colors blended from the given color to black:
+
 ```go
 gamut.Shades(color, 8) // => []color.Color{...}
-// returns a slice of 8 shades, from the given color to black
 ```
 
 ![Shades Palette](https://github.com/muesli/gamut/blob/master/docs/palette_shades.png)
 
+`Tints` returns colors blended from the given color to white:
+
 ```go
 gamut.Tints(color, 8) // => []color.Color{...}
-// returns a slice of 8 tints, from the given color to white
 ```
 
 ![Tints Palette](https://github.com/muesli/gamut/blob/master/docs/palette_tints.png)
 
+`Tones` returns colors blended from the given color to gray:
+
 ```go
 gamut.Tones(color, 8) // => []color.Color{...}
-// returns a slice of 8 tones, from the given color to gray
 ```
 
 ![Tones Palette](https://github.com/muesli/gamut/blob/master/docs/palette_tones.png)
 
 #### Blending Colors
 
+`Blends` returns interpolated colors by blending two colors:
+
 ```go
 gamut.Blends(color1, color2, 8) // => []color.Color{...}
-// returns a slice of interpolated colors by blending two colors
 ```
 
 ![Blends Palette](https://github.com/muesli/gamut/blob/master/docs/palette_blends.png)
