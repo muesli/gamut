@@ -27,7 +27,7 @@ func Hex(s string) color.Color {
 func HueOffset(c color.Color, degrees int) color.Color {
 	col, _ := colorful.MakeColor(c)
 
-	h, s, l := col.Hsl()
+	h, s, v := col.Hsv()
 	h += float64(degrees)
 	if h < 0 {
 		h += 360
@@ -35,7 +35,7 @@ func HueOffset(c color.Color, degrees int) color.Color {
 		h -= 360
 	}
 
-	return colorful.Hsl(h, s, l).Clamped()
+	return colorful.Hsv(h, s, v).Clamped()
 }
 
 // Tetradic returns the tetradic values for any given color
@@ -87,7 +87,7 @@ func Contrast(c color.Color) color.Color {
 	wf := colorful.Color{1, 1, 1}
 	bf := colorful.Color{0, 0, 0}
 
-	_, _, l := col.Hsl()
+	_, _, l := col.Hcl()
 	if l < 0.5 {
 		return wf
 	}
@@ -145,7 +145,7 @@ func Tones(c color.Color, count int) []color.Color {
 // Cool returns whether a color is considered to have a cool temperature
 func Cool(c color.Color) bool {
 	col, _ := colorful.MakeColor(c)
-	h, _, _ := col.Hsl()
+	h, _, _ := col.Hsv()
 
 	return 90 <= h && h < 270
 }
@@ -158,15 +158,15 @@ func Warm(c color.Color) bool {
 // Lighter returns a lighter version of the specified color
 func Lighter(c color.Color, percent float64) color.Color {
 	col, _ := colorful.MakeColor(c)
-	h, s, l := col.Hsl()
+	h, cv, l := col.Hcl()
 
-	return colorful.Hsl(h, s, l+(l*percent))
+	return colorful.Hcl(h, cv, l+(l*percent))
 }
 
 // Darker returns a darker version of the specified color
 func Darker(c color.Color, percent float64) color.Color {
 	col, _ := colorful.MakeColor(c)
-	h, s, l := col.Hsl()
+	h, cv, l := col.Hcl()
 
-	return colorful.Hsl(h, s, l-(l*percent))
+	return colorful.Hcl(h, cv, l-(l*percent))
 }

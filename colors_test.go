@@ -34,8 +34,8 @@ func TestLightness(t *testing.T) {
 		hex     string
 		exp     string
 	}{
-		{Lighter, 0.1, "#2f1b82", "#341e8f"},
-		{Darker, 0.3, "#2f1b82", "#21135b"},
+		{Lighter, 0.1, "#2f1b82", "#352087"},
+		{Darker, 0.3, "#2f1b82", "#1b0d72"},
 	}
 
 	for _, col := range cols {
@@ -86,9 +86,9 @@ func TestHueOffsets(t *testing.T) {
 		exp []string
 	}{
 		{Triadic, "#2f1b82", []string{"#1b822f", "#822f1b"}},
-		{Quadratic, "#2f1b82", []string{"#1b8263", "#6e821b", "#821b3a"}},
-		{Analogous, "#2f1b82", []string{"#1b3a82", "#621b82"}},
-		{SplitComplementary, "#2f1b82", []string{"#82621b", "#3a821b"}},
+		{Quadratic, "#2f1b82", []string{"#1b8262", "#6e821b", "#821b3b"}},
+		{Analogous, "#2f1b82", []string{"#1b3b82", "#621b82"}},
+		{SplitComplementary, "#2f1b82", []string{"#82631b", "#3a821b"}},
 	}
 
 	for coli, col := range cols {
