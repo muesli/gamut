@@ -27,7 +27,7 @@ colors, err := gamut.Generate(8, gamut.PastelGenerator{})
 ![Pastel Palette](https://github.com/muesli/gamut/blob/master/docs/palette_pastel.png)
 
 ```go
-colors, err := gamut.Generate(8, gamut.SimilarHueGenerator{Color: color})
+colors, err := gamut.Generate(8, gamut.SimilarHueGenerator{Color: gamut.Hex("#2F1B82")})
 // returns a slice of 8 colors with a hue similar to the given color
 ```
 
