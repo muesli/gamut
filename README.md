@@ -78,7 +78,7 @@ gamut.Crayola.MixedWith(gamut.Monokai) // => []gamut.Palette
 #### Roles
 
 ```go
-color = gamut.MonokaiTheme.Role(gamut.Foreground)
+gamut.MonokaiTheme.Role(gamut.Foreground) // => color.Color
 ```
 
 Available roles are `Foreground`, `Background`, `Base`, `AlternateBase`, `Text`,
