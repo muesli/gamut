@@ -2,6 +2,7 @@ package gamut
 
 import (
 	"image/color"
+	"math"
 
 	colorful "github.com/lucasb-eyer/go-colorful"
 	"github.com/muesli/kmeans"
@@ -11,19 +12,82 @@ import (
 // is suitable for color generation.
 type ColorGenerator interface {
 	Valid(col colorful.Color) bool
+	Granularity() (l, c float64)
 }
 
+// BroadGranularity is used for wider color spaces, e.g. by the PastelGenerator
+type BroadGranularity struct {
+}
+
+// FineGranularity is used for tighter color spaces, e.g. by the SimilarHueGenerator
+type FineGranularity struct {
+}
+
+// SimilarHueGenerator produces colors with a similar hue as the given color
+type SimilarHueGenerator struct {
+	FineGranularity
+	Color color.Color
+}
+
+// WarmGenerator produces "warm" colors
 type WarmGenerator struct {
+	BroadGranularity
 }
 
 // HappyGenerator produces "happy" colors
 type HappyGenerator struct {
+	BroadGranularity
 }
 
 // PastelGenerator produces "pastel" colors
 type PastelGenerator struct {
+	BroadGranularity
 }
 
+// Granularity returns BroadGranularity's default values
+func (g BroadGranularity) Granularity() (l, c float64) {
+	return 0.05, 0.1
+}
+
+// Granularity returns FineGranularity's default values
+func (g FineGranularity) Granularity() (l, c float64) {
+	return 0.01, 0.01
+}
+
+// distanceDegrees returns the distance between two angles on a circle
+// e.g. the distance between 5 degrees and 355 degress is 10, not 350
+func distanceDegrees(a1, a2 float64) float64 {
+	mod := math.Mod(math.Abs(a1-a2), 360.0)
+	if mod > 180.0 {
+		return 360.0 - mod
+	}
+
+	return mod
+}
+
+// Valid returns true if the given color has a similar hue as the original color
+func (gen SimilarHueGenerator) Valid(col colorful.Color) bool {
+	cf, _ := colorful.MakeColor(gen.Color)
+	h, c, l := cf.Hcl()
+	hc, cc, lc := col.Hcl()
+
+	if cc < c-0.35 || cc > c+0.35 {
+		return false
+	}
+	if lc < l-0.6 || lc > l+0.6 {
+		return false
+	}
+	if distanceDegrees(h, hc) > 7 {
+		return false
+	}
+	if cf.DistanceCIE94(col) > 0.2 {
+		return false
+	}
+
+	return true
+}
+
+// Valid returns true if the color is considered a "warm" color
 func (cc WarmGenerator) Valid(col colorful.Color) bool {
 	_, c, l := col.Hcl()
 	return 0.1 <= c && c <= 0.4 && 0.2 <= l && l <= 0.5
@@ -48,8 +112,7 @@ func Generate(count int, generator ColorGenerator) ([]color.Color, error) {
 	// l for lightness channel
 	// a, b for color channels
 	var cc []color.Color
-	dl := 0.05
-	dab := 0.1
+	dl, dab := generator.Granularity()
 
 	var d kmeans.Points
 	for l := 0.0; l <= 1.0; l += dl {
