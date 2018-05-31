@@ -27,7 +27,8 @@ colors, err := gamut.Generate(8, gamut.SimilarHueGenerator{Color: color})
 ![Pastel Palette](https://github.com/muesli/gamut/blob/master/docs/palette_pastel.png)
 
 Instead of `gamut.PastelGenerator` you can also use `gamut.WarmGenerator` or
-`gamut.HappyGenerator`.
+`gamut.HappyGenerator`. Using the `ColorGenerator` interface, you can write your
+own color generators.
 
 #### Name A Color
 
