@@ -111,6 +111,7 @@ func TestLightnessOffsets(t *testing.T) {
 		hex   string
 		exp   []string
 	}{
+		{Monochromatic, 8, "#2f1b82", []string{"#110a2f", "#22135e", "#331d8d", "#4427bc", "#6043d8", "#8872e2", "#b0a1ec", "#d7d0f5"}},
 		{Shades, 8, "#2f1b82", []string{"#2c1973", "#291864", "#251656", "#211447", "#1d123a", "#190f2d", "#150b20", "#0c0514"}},
 		{Tints, 8, "#2f1b82", []string{"#4b3290", "#634a9e", "#7a62ac", "#917ab9", "#a794c7", "#bdaed5", "#d3c8e3", "#e9e3f1"}},
 		{Tones, 8, "#2f1b82", []string{"#3d2782", "#483282", "#523d82", "#5b4882", "#635382", "#6b5e82", "#726981", "#797480"}},
