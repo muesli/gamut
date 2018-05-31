@@ -136,15 +136,30 @@ gamut.Cool(color) // => bool
 ```go
 gamut.Monochromatic(color, 8) // => []color.Color{...}
 // returns colors of the same hue, but with a different saturation/lightness
+```
+
+![Monochromatic Palette](https://github.com/muesli/gamut/blob/master/docs/palette_monochromatic.png)
+
+```go
 gamut.Shades(color, 8) // => []color.Color{...}
 // returns a slice of 8 shades, from the given color to black
+```
+
+![Shades Palette](https://github.com/muesli/gamut/blob/master/docs/palette_shades.png)
+
+```go
 gamut.Tints(color, 8) // => []color.Color{...}
 // returns a slice of 8 tints, from the given color to white
+```
+
+![Tints Palette](https://github.com/muesli/gamut/blob/master/docs/palette_tints.png)
+
+```go
 gamut.Tones(color, 8) // => []color.Color{...}
 // returns a slice of 8 tones, from the given color to gray
 ```
 
-![Shades, Tints and Tones](https://github.com/muesli/gamut/blob/master/docs/shades_tints_tones.png)
+![Tones Palette](https://github.com/muesli/gamut/blob/master/docs/palette_tones.png)
 
 #### Blending Colors
 
@@ -152,6 +167,8 @@ gamut.Tones(color, 8) // => []color.Color{...}
 gamut.Blends(color1, color2, 8) // => []color.Color{...}
 // returns a slice of interpolated colors by blending two colors
 ```
+
+![Blends Palette](https://github.com/muesli/gamut/blob/master/docs/palette_blends.png)
 
 ## Development
 
