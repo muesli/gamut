@@ -15,8 +15,6 @@ import "github.com/muesli/gamut"
 | Resene    |    759 | http://www.resene.co.nz                                     |
 | Monokai   |     17 |                                                             |
 
-### Examples
-
 #### Generating Color Palettes
 
 Color Generators, like the provided `PastelGenerator`, `WarmGenerator` or
@@ -74,8 +72,6 @@ gamut.Crayola.MixedWith(gamut.Monokai) // => gamut.Palette
 | ------- | ------:|
 | Monokai |      7 |
 
-### Examples
-
 #### Roles
 
 ```go
@@ -86,8 +82,6 @@ Available roles are `Foreground`, `Background`, `Base`, `AlternateBase`, `Text`,
 `Selection`, `Highlight`.
 
 ## Colors
-
-### Examples
 
 #### Around the Color Wheel
 
