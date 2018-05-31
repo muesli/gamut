@@ -20,6 +20,8 @@ import "github.com/muesli/gamut"
 
 colors, err := gamut.Generate(8, gamut.PastelGenerator{})
 // returns a slice of 8 pastel colors
+colors, err := gamut.Generate(8, gamut.SimilarHueGenerator{Color: color})
+// returns a slice of 8 colors with a hue similar to the given color
 ```
 
 ![Pastel Palette](https://github.com/muesli/gamut/blob/master/docs/palette_pastel.png)
