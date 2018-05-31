@@ -1,9 +1,9 @@
 package htmlgen
 
 import (
-	"bytes"
 	"fmt"
 	"image/color"
+	"io"
 
 	"github.com/muesli/gamut"
 
@@ -34,24 +34,24 @@ var (
 )
 
 // Header writes the HTML header to buffer
-func Header(buffer *bytes.Buffer) {
+func Header(buffer io.Writer) {
 	buffer.Write([]byte(header))
 }
 
 // Footer writes the HTML footer to buffer
-func Footer(buffer *bytes.Buffer) {
+func Footer(buffer io.Writer) {
 	buffer.Write([]byte(footer))
 }
 
 // Cell writes a colored HTML table cell to buffer
-func Cell(buffer *bytes.Buffer, c color.Color) {
+func Cell(buffer io.Writer, c color.Color) {
 	col, _ := colorful.MakeColor(c)
 	comp, _ := colorful.MakeColor(gamut.Contrast(c))
 	buffer.Write([]byte(fmt.Sprintf(cell, col.Hex(), comp.Hex(), col.Hex())))
 }
 
 // Table writes a palette of colors as an HTML table to buffer
-func Table(buffer *bytes.Buffer, name string, cc []color.Color) {
+func Table(buffer io.Writer, name string, cc []color.Color) {
 	if name != "" {
 		buffer.Write([]byte(fmt.Sprintf(tablecaption, name)))
 	}
