@@ -4,9 +4,10 @@ import (
 	"bytes"
 	"io/ioutil"
 
-	colorful "github.com/lucasb-eyer/go-colorful"
 	"github.com/muesli/gamut"
 	"github.com/muesli/gamut/examples/htmlgen"
+
+	colorful "github.com/lucasb-eyer/go-colorful"
 )
 
 func main() {
