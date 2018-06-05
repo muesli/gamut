@@ -106,15 +106,20 @@ func (cc PastelGenerator) Valid(col colorful.Color) bool {
 	return 0.2 <= s && s <= 0.4 && 0.7 <= v && v <= 1.0
 }
 
+// ColorObservation is a wrapper around colorful.Color, implementing the
+// clusters.Observation interface
 type ColorObservation struct {
 	colorful.Color
 }
 
+// Coordinates returns the data points of a Lab color value
 func (c ColorObservation) Coordinates() clusters.Coordinates {
 	l, a, b := c.Lab()
 	return clusters.Coordinates{l, a, b}
 }
 
+// Distance calculates the distance between two ColorObservations in the Lab
+// color space
 func (c ColorObservation) Distance(pos clusters.Coordinates) float64 {
 	c2 := colorful.Lab(pos[0], pos[1], pos[2])
 	return c.DistanceLab(c2)
