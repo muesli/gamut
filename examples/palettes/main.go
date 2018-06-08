@@ -50,6 +50,10 @@ func main() {
 	palette("similarhue", cc)
 	cc, _ = gamut.Generate(cells, gamut.PastelGenerator{})
 	palette("pastel", cc)
+	cc, _ = gamut.Generate(cells, gamut.HappyGenerator{})
+	palette("happy", cc)
+	cc, _ = gamut.Generate(cells, gamut.WarmGenerator{})
+	palette("warm", cc)
 
 	// angular
 	palette("triadic", gamut.Triadic(c))
