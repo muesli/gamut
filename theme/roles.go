@@ -1,4 +1,4 @@
-package gamut
+package theme
 
 // Color Roles in a Theme
 const (

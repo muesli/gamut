@@ -1,7 +1,9 @@
-package gamut
+package theme
 
 import (
 	"testing"
+
+	"github.com/muesli/gamut/palette"
 )
 
 func TestThemeColors(t *testing.T) {
@@ -14,7 +16,7 @@ func TestThemeColors(t *testing.T) {
 
 func TestThemeRoles(t *testing.T) {
 	c := MonokaiTheme.Role(Foreground)
-	if c != Monokai.Filter("Extra White")[0] {
-		t.Errorf("Expected role color %s, got %s", Monokai.Filter("Extra White")[0], c)
+	if c != palette.Monokai.Filter("Extra White")[0] {
+		t.Errorf("Expected role color %s, got %s", palette.Monokai.Filter("Extra White")[0], c)
 	}
 }

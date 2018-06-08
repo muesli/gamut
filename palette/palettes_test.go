@@ -1,10 +1,11 @@
-package gamut
+package palette
 
 import (
 	"image/color"
 	"testing"
 
 	colorful "github.com/lucasb-eyer/go-colorful"
+	"github.com/muesli/gamut"
 )
 
 func TestDistance(t *testing.T) {
@@ -35,8 +36,8 @@ func TestDistance(t *testing.T) {
 }
 
 func TestClamped(t *testing.T) {
-	cc := []color.Color{Hex("#FFBE00"), Hex("#FB6E79"), Hex("#0095B7")}
-	exp := []color.Color{Hex("#FFBF00"), Hex("#FA6E79"), Hex("#0095B6")}
+	cc := []color.Color{gamut.Hex("#FFBE00"), gamut.Hex("#FB6E79"), gamut.Hex("#0095B7")}
+	exp := []color.Color{gamut.Hex("#FFBF00"), gamut.Hex("#FA6E79"), gamut.Hex("#0095B6")}
 
 	c := Wikipedia.Clamped(cc)
 	for i := range c {

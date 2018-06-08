@@ -1,47 +1,51 @@
-package gamut
+package palette
 
-import colorful "github.com/lucasb-eyer/go-colorful"
+import (
+	"github.com/muesli/gamut"
+
+	colorful "github.com/lucasb-eyer/go-colorful"
+)
 
 var (
 	// Wikipedia Palette
-	Wikipedia Palette
+	Wikipedia gamut.Palette
 	// Monokai Palette
-	Monokai Palette
+	Monokai gamut.Palette
 	// Crayola Palette
-	Crayola Palette
+	Crayola gamut.Palette
 	// Resene Palette
-	Resene Palette
+	Resene gamut.Palette
 )
 
 // AllPalettes returns a mix of all palettes defined in gamut
-func AllPalettes() Palette {
+func AllPalettes() gamut.Palette {
 	return Wikipedia.MixedWith(Crayola).MixedWith(Resene).MixedWith(Monokai)
 }
 
 func init() {
 	Monokai.AddColors(
-		Colors{
-			{"Spray", Hex("#66D9EF"), ""},           // Type
-			{"Tree Poppy", Hex("#FD971F"), ""},      // Function Argument
-			{"Armadillo", Hex("#49483E"), ""},       // Selection
-			{"El Paso", Hex("#3E3D32"), ""},         // Highlight
-			{"Center Stage", Hex("#A6E22E"), ""},    // Function, Class
-			{"Feverish Pink", Hex("#F92672"), ""},   // Keyword
-			{"Lavish Lavender", Hex("#AE81FF"), ""}, // Number, constant
-			{"Funky Yellow", Hex("#E6DB74"), ""},    // String
-			{"Cocoon", Hex("#75715E"), ""},          // Comment
-			{"Extra White", Hex("#F8F8F2"), ""},     // Text
-			{"Caviar", Hex("#272822"), ""},          // Background
-			{"Caviar Dark", Hex("#141411"), ""},
-			{"Blue Beyond", Hex("#89BDFF"), ""},
-			{"Urbane Bronze", Hex("#595959"), ""},
-			{"Tricorn Black", Hex("#383830"), ""},
-			{"Soothing White", Hex("#E6E6E6"), ""},
-			{"Ice Plant", Hex("#FD5FF1"), ""},
+		gamut.Colors{
+			{"Spray", gamut.Hex("#66D9EF"), ""},           // Type
+			{"Tree Poppy", gamut.Hex("#FD971F"), ""},      // Function Argument
+			{"Armadillo", gamut.Hex("#49483E"), ""},       // Selection
+			{"El Paso", gamut.Hex("#3E3D32"), ""},         // Highlight
+			{"Center Stage", gamut.Hex("#A6E22E"), ""},    // Function, Class
+			{"Feverish Pink", gamut.Hex("#F92672"), ""},   // Keyword
+			{"Lavish Lavender", gamut.Hex("#AE81FF"), ""}, // Number, constant
+			{"Funky Yellow", gamut.Hex("#E6DB74"), ""},    // String
+			{"Cocoon", gamut.Hex("#75715E"), ""},          // Comment
+			{"Extra White", gamut.Hex("#F8F8F2"), ""},     // Text
+			{"Caviar", gamut.Hex("#272822"), ""},          // Background
+			{"Caviar Dark", gamut.Hex("#141411"), ""},
+			{"Blue Beyond", gamut.Hex("#89BDFF"), ""},
+			{"Urbane Bronze", gamut.Hex("#595959"), ""},
+			{"Tricorn Black", gamut.Hex("#383830"), ""},
+			{"Soothing White", gamut.Hex("#E6E6E6"), ""},
+			{"Ice Plant", gamut.Hex("#FD5FF1"), ""},
 		})
 
 	Crayola.AddColors(
-		Colors{
+		gamut.Colors{
 			{"Red", colorful.Color{R: 0.929412, G: 0.039216, B: 0.247059}, ""},
 			{"Maroon", colorful.Color{R: 0.764706, G: 0.129412, B: 0.282353}, ""},
 			{"Scarlet", colorful.Color{R: 0.992157, G: 0.054902, B: 0.207843}, ""},
@@ -225,7 +229,7 @@ func init() {
 		})
 
 	Wikipedia.AddColors(
-		Colors{
+		gamut.Colors{
 			{"Absolute Zero", colorful.Color{R: 0.000000, G: 0.282353, B: 0.729412}, ""},
 			{"Acajou", colorful.Color{R: 0.298039, G: 0.184314, B: 0.152941}, ""},
 			{"Acid green", colorful.Color{R: 0.690196, G: 0.749020, B: 0.101961}, ""},
@@ -1838,7 +1842,7 @@ func init() {
 		})
 
 	Resene.AddColors(
-		Colors{
+		gamut.Colors{
 			{"Abbey", colorful.Color{R: 0.298039, G: 0.309804, B: 0.337255}, ""},
 			{"Acadia", colorful.Color{R: 0.105882, G: 0.078431, B: 0.015686}, ""},
 			{"Acapulco", colorful.Color{R: 0.486275, G: 0.690196, B: 0.631373}, ""},

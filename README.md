@@ -4,82 +4,9 @@ Go package to generate and manage color palettes & schemes
 
 ```go
 import "github.com/muesli/gamut"
+import "github.com/muesli/gamut/palette"
+import "github.com/muesli/gamut/theme"
 ```
-
-## Palettes
-
-| Name      | Colors | Source                                                      |
-| --------- | ------:| ----------------------------------------------------------- |
-| Wikipedia |   1609 | https://en.wikipedia.org/wiki/List_of_colors_(compact)      |
-| Crayola   |    180 | https://en.wikipedia.org/wiki/List_of_Crayola_crayon_colors |
-| Resene    |    759 | http://www.resene.co.nz                                     |
-| Monokai   |     17 |                                                             |
-
-#### Generating Color Palettes
-
-Color Generators, like the provided `PastelGenerator`, `WarmGenerator` or
-`HappyGenerator` can produce random (within the color space constraits of the
-generator) color palettes:
-
-```go
-gamut.Generate(8, gamut.PastelGenerator{})
-// => ([]color.Color{...}, error)
-```
-
-![Pastel Palette](https://github.com/muesli/gamut/blob/master/docs/palette_pastel.png)
-
-The `SimilarHueGenerator` produces colors with a hue similar to a given color:
-
-```go
-gamut.Generate(8, gamut.SimilarHueGenerator{Color: gamut.Hex("#2F1B82")})
-// => ([]color.Color{...}, error)
-```
-
-![Similar Hue Palette](https://github.com/muesli/gamut/blob/master/docs/palette_similarhue.png)
-
-Using the `ColorGenerator` interface, you can also write your own color generators.
-
-#### Name A Color
-
-```go
-gamut.Wikipedia.Name(color) // => (name string, distance float64)
-// name = "Baby blue"
-// distance between 0.0 and 1.0
-```
-
-#### Retrieving Colors
-
-```go
-gamut.Crayola.Filter("Red") // => []color.Color{...}
-// returns a slice of all "Red" colors in the Crayola palette
-gamut.Resene.Colors() // => []color.Color{...}
-// returns a slice of all colors in the Resene palette
-gamut.Monokai.Clamped(colors) // => []color.Color{...}
-// returns a slice of the nearest matching colors in the Monokai palette
-```
-
-#### Mixing Palettes
-
-You can combine all colors of two palettes by mixing them:
-
-```go
-gamut.Crayola.MixedWith(gamut.Monokai) // => gamut.Palette
-```
-
-## Themes
-
-| Name    | Colors |
-| ------- | ------:|
-| Monokai |      7 |
-
-#### Roles
-
-```go
-gamut.MonokaiTheme.Role(gamut.Foreground) // => color.Color
-```
-
-Available roles are `Foreground`, `Background`, `Base`, `AlternateBase`, `Text`,
-`Selection`, `Highlight`.
 
 ## Colors
 
@@ -170,6 +97,81 @@ gamut.Blends(color1, color2, 8) // => []color.Color{...}
 ```
 
 ![Blends Palette](https://github.com/muesli/gamut/blob/master/docs/palette_blends.png)
+
+## Palettes
+
+| Name      | Colors | Source                                                      |
+| --------- | ------:| ----------------------------------------------------------- |
+| Wikipedia |   1609 | https://en.wikipedia.org/wiki/List_of_colors_(compact)      |
+| Crayola   |    180 | https://en.wikipedia.org/wiki/List_of_Crayola_crayon_colors |
+| Resene    |    759 | http://www.resene.co.nz                                     |
+| Monokai   |     17 |                                                             |
+
+#### Generating Color Palettes
+
+Color Generators, like the provided `PastelGenerator`, `WarmGenerator` or
+`HappyGenerator` can produce random (within the color space constraits of the
+generator) color palettes:
+
+```go
+gamut.Generate(8, gamut.PastelGenerator{})
+// => ([]color.Color{...}, error)
+```
+
+![Pastel Palette](https://github.com/muesli/gamut/blob/master/docs/palette_pastel.png)
+
+The `SimilarHueGenerator` produces colors with a hue similar to a given color:
+
+```go
+gamut.Generate(8, gamut.SimilarHueGenerator{Color: gamut.Hex("#2F1B82")})
+// => ([]color.Color{...}, error)
+```
+
+![Similar Hue Palette](https://github.com/muesli/gamut/blob/master/docs/palette_similarhue.png)
+
+Using the `ColorGenerator` interface, you can also write your own color generators.
+
+#### Name A Color
+
+```go
+palette.Wikipedia.Name(color) // => (name string, distance float64)
+// name = "Baby blue"
+// distance between 0.0 and 1.0
+```
+
+#### Retrieving Colors
+
+```go
+palette.Crayola.Filter("Red") // => []color.Color{...}
+// returns a slice of all "Red" colors in the Crayola palette
+palette.Resene.Colors() // => []color.Color{...}
+// returns a slice of all colors in the Resene palette
+palette.Monokai.Clamped(colors) // => []color.Color{...}
+// returns a slice of the nearest matching colors in the Monokai palette
+```
+
+#### Mixing Palettes
+
+You can combine all colors of two palettes by mixing them:
+
+```go
+palette.Crayola.MixedWith(palette.Monokai) // => gamut.Palette
+```
+
+## Themes
+
+| Name    | Colors |
+| ------- | ------:|
+| Monokai |      7 |
+
+#### Roles
+
+```go
+theme.MonokaiTheme.Role(theme.Foreground) // => color.Color
+```
+
+Available roles are `Foreground`, `Background`, `Base`, `AlternateBase`, `Text`,
+`Selection`, `Highlight`.
 
 ## Development
 
