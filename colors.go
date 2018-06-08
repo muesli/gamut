@@ -8,9 +8,9 @@ import (
 
 // A Color is a color including its name and reference URL
 type Color struct {
-	Name         string
-	Color        color.Color
-	WikipediaURL string
+	Name      string
+	Color     color.Color
+	Reference string
 }
 
 // Colors is a slice of colors
