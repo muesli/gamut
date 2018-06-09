@@ -11,11 +11,14 @@ go:
   - tip
 
 before_install:
-  - if [[ $TRAVIS_GO_VERSION == 1.10* ]]; then go get github.com/axw/gocov/gocov github.com/mattn/goveralls; fi
+  - if [[ $TRAVIS_GO_VERSION == 1.10* ]]; then go get github.com/axw/gocov/gocov github.com/modocache/gover github.com/mattn/goveralls; fi
 
 script:
-  - go test -v -tags ci ./...
-  - if [[ $TRAVIS_GO_VERSION == 1.10* ]]; then $GOPATH/bin/goveralls -service=travis-ci -ignore="examples/generator/main.go,examples/simple/main.go"; fi
+  - go test -v -tags ci -coverprofile=palette.coverprofile ./palette
+  - go test -v -tags ci -coverprofile=them.coverprofile ./theme
+  - go test -v -tags ci -coverprofile=main.coverprofile
+  - $GOPATH/bin/gover
+  - if [[ $TRAVIS_GO_VERSION == 1.10* ]]; then $GOPATH/bin/goveralls -coverprofile=gover.coverprofile -service=travis-ci; fi
 
 notifications:
   email:
