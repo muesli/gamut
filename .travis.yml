@@ -17,8 +17,7 @@ script:
   - go test -v -tags ci -coverprofile=palette.coverprofile ./palette
   - go test -v -tags ci -coverprofile=them.coverprofile ./theme
   - go test -v -tags ci -coverprofile=main.coverprofile
-  - $GOPATH/bin/gover
-  - if [[ $TRAVIS_GO_VERSION == 1.10* ]]; then $GOPATH/bin/goveralls -coverprofile=gover.coverprofile -service=travis-ci; fi
+  - if [[ $TRAVIS_GO_VERSION == 1.10* ]]; then $GOPATH/bin/gover && $GOPATH/bin/goveralls -coverprofile=gover.coverprofile -service=travis-ci; fi
 
 notifications:
   email:
