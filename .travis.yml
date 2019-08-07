@@ -9,16 +9,20 @@ go:
   - 1.9.x
   - 1.10.x
   - 1.11.x
+<<<<<<< HEAD
+=======
+  - 1.12.x
+>>>>>>> Test against Go 1.12 on TravisCI
   - tip
 
 before_install:
-  - if [[ $TRAVIS_GO_VERSION == 1.10* ]]; then go get github.com/axw/gocov/gocov github.com/modocache/gover github.com/mattn/goveralls; fi
+  - if [[ $TRAVIS_GO_VERSION == 1.12* ]]; then go get github.com/axw/gocov/gocov github.com/modocache/gover github.com/mattn/goveralls; fi
 
 script:
   - go test -v -tags ci -coverprofile=palette.coverprofile ./palette
   - go test -v -tags ci -coverprofile=them.coverprofile ./theme
   - go test -v -tags ci -coverprofile=main.coverprofile
-  - if [[ $TRAVIS_GO_VERSION == 1.10* ]]; then $GOPATH/bin/gover && $GOPATH/bin/goveralls -coverprofile=gover.coverprofile -service=travis-ci; fi
+  - if [[ $TRAVIS_GO_VERSION == 1.12* ]]; then $GOPATH/bin/gover && $GOPATH/bin/goveralls -coverprofile=gover.coverprofile -service=travis-ci; fi
 
 notifications:
   email:
