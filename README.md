@@ -110,7 +110,7 @@ gamut.Blends(color1, color2, 8) // => []color.Color{...}
 #### Generating Color Palettes
 
 Color Generators, like the provided `PastelGenerator`, `WarmGenerator` or
-`HappyGenerator` can produce random (within the color space constraits of the
+`HappyGenerator` can produce random (within the color space constraints of the
 generator) color palettes:
 
 ```go
