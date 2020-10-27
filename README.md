@@ -1,5 +1,11 @@
 # gamut
 
+[![Latest Release](https://img.shields.io/github/release/muesli/gamut.svg)](https://github.com/muesli/gamut/releases)
+[![Build Status](https://github.com/muesli/gamut/workflows/build/badge.svg)](https://github.com/muesli/gamut/actions)
+[![Coverage Status](https://coveralls.io/repos/github/muesli/gamut/badge.svg?branch=master)](https://coveralls.io/github/muesli/gamut?branch=master)
+[![Go ReportCard](http://goreportcard.com/badge/muesli/gamut)](http://goreportcard.com/report/muesli/gamut)
+[![GoDoc](https://godoc.org/github.com/golang/gddo?status.svg)](https://pkg.go.dev/github.com/muesli/gamut)
+
 Go package to generate and manage color palettes & schemes
 
 ```go
@@ -101,7 +107,7 @@ gamut.Blends(color1, color2, 8) // => []color.Color{...}
 ## Palettes
 
 | Name      | Colors | Source                                                      |
-| --------- | ------:| ----------------------------------------------------------- |
+| --------- | -----: | ----------------------------------------------------------- |
 | Wikipedia |   1609 | https://en.wikipedia.org/wiki/List_of_colors_(compact)      |
 | Crayola   |    180 | https://en.wikipedia.org/wiki/List_of_Crayola_crayon_colors |
 | Resene    |    759 | http://www.resene.co.nz                                     |
@@ -161,7 +167,7 @@ palette.Crayola.MixedWith(palette.Monokai) // => gamut.Palette
 ## Themes
 
 | Name    | Colors |
-| ------- | ------:|
+| ------- | -----: |
 | Monokai |      7 |
 
 #### Roles
@@ -172,10 +178,3 @@ theme.MonokaiTheme.Role(theme.Foreground) // => color.Color
 
 Available roles are `Foreground`, `Background`, `Base`, `AlternateBase`, `Text`,
 `Selection`, `Highlight`.
-
-## Development
-
-[![GoDoc](https://godoc.org/github.com/golang/gddo?status.svg)](https://godoc.org/github.com/muesli/gamut)
-[![Build Status](https://travis-ci.org/muesli/gamut.svg?branch=master)](https://travis-ci.org/muesli/gamut)
-[![Coverage Status](https://coveralls.io/repos/github/muesli/gamut/badge.svg?branch=master)](https://coveralls.io/github/muesli/gamut?branch=master)
-[![Go ReportCard](http://goreportcard.com/badge/muesli/gamut)](http://goreportcard.com/report/muesli/gamut)
