@@ -16,56 +16,103 @@ import "github.com/muesli/gamut/theme"
 
 ## Colors
 
-#### Around the Color Wheel
+gamut operates on various color spaces internally, but all color values you pass
+in as parameters and all return values will match Go’s color.Color interface.
+
+Let’s start with the basics. Just for convenience there’s a hex-value parser:
+
+```go
+color = gamut.Hex("#333")
+color = gamut.Hex("#ABCDEF")
+```
+
+Both the short and standard formats are supported.
+
+### Around the Color Wheel
 
 The `Darker` and `Lighter` functions darken and lighten respectively a given
 color value by a specified percentage, without changing the color's hue:
 
 ```go
-gamut.Darker(color, 0.1) // => color.Color
 // returns a 10% darker version of color
-gamut.Lighter(color, 0.3) // => color.Color
+color = gamut.Darker(color, 0.1)
 // returns a 30% lighter version of color
+color = gamut.Lighter(color, 0.3)
 ```
 
 `Complementary` returns the complementary color for a given color:
 
 ```go
-gamut.Complementary(color) // => color.Color
+color = gamut.Complementary(color)
 ```
 
 `Contrast` returns the color with the highest contrast to a given color, either
 black or white:
 
 ```go
-gamut.Contrast(color) // => color.Color
+color = gamut.Contrast(color)
 ```
+
+To retrieve a color with the same lightness and saturation, but a different
+angle on the color wheel, you can use the HueOffset function:
+
+```go
+color = gamut.HueOffset(color, 90)
+```
+
+You can also go in the opposite direction by using negative values.
+
+### Schemes
 
 All the following functions return colors of a different hue, but with the same
 lightness and saturation as the given colors:
 
-```go
-gamut.Triadic(color)            // => []color.Color{...}
-gamut.Quadratic(color)          // => []color.Color{...}
-gamut.Tetradic(color1, color2)  // => []color.Color{...}
-gamut.Analogous(color)          // => []color.Color{...}
-gamut.SplitComplementary(color) // => []color.Color{...}
-```
-
-#### Warm/Cool Colors
+Triadic schemes are made up of three hues equally spaced around the color wheel:
 
 ```go
-gamut.Warm(color) // => bool
-gamut.Cool(color) // => bool
+colors = gamut.Triadic(color)
 ```
 
-#### Shades, Tints & Tones
+Quadratic schemes are made up of four hues equally spaced around the color wheel:
+
+```go
+colors = gamut.Quadratic(color)
+```
+
+Tetradic schemes are made up by two colors and their complementary values:
+
+```go
+colors = gamut.Tetradic(color1, color2)
+```
+
+Analogous schemes are created by using colors that are next to each other on the
+color wheel:
+
+```go
+colors = gamut.Analogous(color)
+```
+
+SplitComplementary schemes are created by using colors next to the complementary
+value of a given color:
+
+```go
+colors = gamut.SplitComplementary(color)
+```
+
+### Warm/Cool Colors
+
+```go
+ok = gamut.Warm(color)
+ok = gamut.Cool(color)
+```
+
+### Shades, Tints & Tones
 
 `Monochromatic` returns colors of the same hue, but with a different
 saturation/lightness:
 
 ```go
-gamut.Monochromatic(color, 8) // => []color.Color{...}
+colors = gamut.Monochromatic(color, 8)
 ```
 
 ![Monochromatic Palette](https://github.com/muesli/gamut/blob/master/docs/palette_monochromatic.png)
@@ -73,7 +120,7 @@ gamut.Monochromatic(color, 8) // => []color.Color{...}
 `Shades` returns colors blended from the given color to black:
 
 ```go
-gamut.Shades(color, 8) // => []color.Color{...}
+colors = gamut.Shades(color, 8)
 ```
 
 ![Shades Palette](https://github.com/muesli/gamut/blob/master/docs/palette_shades.png)
@@ -81,7 +128,7 @@ gamut.Shades(color, 8) // => []color.Color{...}
 `Tints` returns colors blended from the given color to white:
 
 ```go
-gamut.Tints(color, 8) // => []color.Color{...}
+colors = gamut.Tints(color, 8)
 ```
 
 ![Tints Palette](https://github.com/muesli/gamut/blob/master/docs/palette_tints.png)
@@ -89,22 +136,29 @@ gamut.Tints(color, 8) // => []color.Color{...}
 `Tones` returns colors blended from the given color to gray:
 
 ```go
-gamut.Tones(color, 8) // => []color.Color{...}
+colors = gamut.Tones(color, 8)
 ```
 
 ![Tones Palette](https://github.com/muesli/gamut/blob/master/docs/palette_tones.png)
 
-#### Blending Colors
+### Blending Colors
 
 `Blends` returns interpolated colors by blending two colors:
 
 ```go
-gamut.Blends(color1, color2, 8) // => []color.Color{...}
+colors = gamut.Blends(color1, color2, 8)
 ```
 
 ![Blends Palette](https://github.com/muesli/gamut/blob/master/docs/palette_blends.png)
 
 ## Palettes
+
+Gamut comes with four curated color palettes: Wikipedia, Crayola, Resene and
+Monokai. The Wikipedia palette is an import of common colors from Wikipedia’s
+List of Colors. Similarly Crayola consists of colors resembling the palette of
+Crayola drawing crayons, while Resene refers to the color palette of the paint
+manufacturer. New curated palettes and importers are welcome. Send me a pull
+request!
 
 | Name      | Colors | Source                                                      |
 | --------- | -----: | ----------------------------------------------------------- |
@@ -113,15 +167,76 @@ gamut.Blends(color1, color2, 8) // => []color.Color{...}
 | Resene    |    759 | http://www.resene.co.nz                                     |
 | Monokai   |     17 |                                                             |
 
-#### Generating Color Palettes
+The function Colors lets you retrieve all colors in a palette:
+
+```go
+for _, c := range palette.Wikipedia.Colors() {
+    fmt.Println(c.Name, c.Color)
+}
+```
+
+This will print out a list of 1609 color names, as defined by Wikipedia.
+
+### Creating Your Own Palettes
+
+```go
+var p gamut.Palette
+p.AddColors(
+    gamut.Colors{
+        {"Name", gamut.Hex("#123456"), "Reference"},
+        ...
+    }
+)
+```
+
+Name and Reference are optional when creating your own palettes.
+
+### Names
+
+Each color in the curated palettes comes with an “official” name. You can filter
+palettes by colors with specific names. This code snippet will return a list of
+all “blue” colors in the Wikipedia palette:
+
+```go
+colors = palette.Wikipedia.Filter("blue")
+```
+
+Calling a palette’s `Name` function with a given color returns the name & distance
+of the closest (perceptually) matching color in it:
+
+```go
+name, distance = palette.Wikipedia.Name(color)
+// name = "Baby blue"
+// distance between 0.0 and 1.0
+```
+
+### Mixing Palettes
+
+You can combine all colors of two palettes by mixing them:
+
+```go
+p = palette.Crayola.MixedWith(palette.Monokai)
+```
+
+### Perception
+
+Sometimes you got a slice of colors, but you have a limited color palette to
+work with. The Clamped function returns a slice of the closest perceptually
+matching colors in a palette, maintaining the same order as the original slice
+you provided. Finally you can remix your favorite wallpapers in Crayola-style!
+
+```go
+colors = palette.Crayola.Clamped(colors)
+```
+
+### Generating Color Palettes
 
 Color Generators, like the provided `PastelGenerator`, `WarmGenerator` or
 `HappyGenerator` can produce random (within the color space constraints of the
 generator) color palettes:
 
 ```go
-gamut.Generate(8, gamut.PastelGenerator{})
-// => ([]color.Color{...}, error)
+colors, err = gamut.Generate(8, gamut.PastelGenerator{})
 ```
 
 ![Pastel Palette](https://github.com/muesli/gamut/blob/master/docs/palette_pastel.png)
@@ -129,40 +244,28 @@ gamut.Generate(8, gamut.PastelGenerator{})
 The `SimilarHueGenerator` produces colors with a hue similar to a given color:
 
 ```go
-gamut.Generate(8, gamut.SimilarHueGenerator{Color: gamut.Hex("#2F1B82")})
-// => ([]color.Color{...}, error)
+colors, err = gamut.Generate(8, gamut.SimilarHueGenerator{Color: gamut.Hex("#2F1B82")})
 ```
 
 ![Similar Hue Palette](https://github.com/muesli/gamut/blob/master/docs/palette_similarhue.png)
 
-Using the `ColorGenerator` interface, you can also write your own color generators.
-
-#### Name A Color
+Using the `ColorGenerator` interface, you can also write your own color generators:
 
 ```go
-palette.Wikipedia.Name(color) // => (name string, distance float64)
-// name = "Baby blue"
-// distance between 0.0 and 1.0
+type BrightGenerator struct {
+	BroadGranularity
+}
+
+func (cc BrightGenerator) Valid(col colorful.Color) bool {
+	_, _, l := col.Lab()
+	return 0.7 <= l && l <= 1.0
+}
+
+...
+colors, err := gamut.Generate(8, BrightGenerator{})
 ```
 
-#### Retrieving Colors
-
-```go
-palette.Crayola.Filter("Red") // => []color.Color{...}
-// returns a slice of all "Red" colors in the Crayola palette
-palette.Resene.Colors() // => []color.Color{...}
-// returns a slice of all colors in the Resene palette
-palette.Monokai.Clamped(colors) // => []color.Color{...}
-// returns a slice of the nearest matching colors in the Monokai palette
-```
-
-#### Mixing Palettes
-
-You can combine all colors of two palettes by mixing them:
-
-```go
-palette.Crayola.MixedWith(palette.Monokai) // => gamut.Palette
-```
+Only colors with a lightness between 0.7 and 1.0 will be accepted by this generator.
 
 ## Themes
 
@@ -170,10 +273,10 @@ palette.Crayola.MixedWith(palette.Monokai) // => gamut.Palette
 | ------- | -----: |
 | Monokai |      7 |
 
-#### Roles
+### Roles
 
 ```go
-theme.MonokaiTheme.Role(theme.Foreground) // => color.Color
+color = theme.MonokaiTheme.Role(theme.Foreground)
 ```
 
 Available roles are `Foreground`, `Background`, `Base`, `AlternateBase`, `Text`,
