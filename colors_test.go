@@ -35,7 +35,9 @@ func TestLightness(t *testing.T) {
 		exp     string
 	}{
 		{Lighter, 0.1, "#2f1b82", "#352087"},
+		{Lighter, 0.8, "#ea621f", "#ffe49a"},
 		{Darker, 0.3, "#2f1b82", "#1b0d72"},
+		{Darker, 0.8, "#ea621f", "#5e0000"},
 	}
 
 	for _, col := range cols {
