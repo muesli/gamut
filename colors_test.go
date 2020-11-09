@@ -52,12 +52,22 @@ func TestLightness(t *testing.T) {
 }
 
 func TestComplementary(t *testing.T) {
-	c, _ := colorful.Hex("#2f1b82")
-	cc, _ := colorful.MakeColor(Complementary(c))
-	exp, _ := colorful.Hex("#6e821b")
+	cols := []struct {
+		hex           string
+		complementary string
+	}{
+		{"#2f1b82", "#6e821b"},
+		{"#00ffff", "#ff0000"},
+	}
 
-	if cc.Hex() != exp.Hex() {
-		t.Errorf("Expected complementary color %v, got %v", exp.Hex(), cc.Hex())
+	for _, col := range cols {
+		c, _ := colorful.Hex(col.hex)
+		cc, _ := colorful.MakeColor(Complementary(c))
+		exp, _ := colorful.Hex(col.complementary)
+
+		if cc.Hex() != exp.Hex() {
+			t.Errorf("Expected complementary color %v, got %v", exp.Hex(), cc.Hex())
+		}
 	}
 }
 

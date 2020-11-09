@@ -30,7 +30,7 @@ func HueOffset(c color.Color, degrees int) color.Color {
 	h += float64(degrees)
 	if h < 0 {
 		h += 360
-	} else if h > 360 {
+	} else if h >= 360 {
 		h -= 360
 	}
 
