@@ -164,6 +164,7 @@ request!
 | --------- | -----: | ----------------------------------------------------------- |
 | Wikipedia |   1609 | https://en.wikipedia.org/wiki/List_of_colors_(compact)      |
 | Crayola   |    180 | https://en.wikipedia.org/wiki/List_of_Crayola_crayon_colors |
+| RAL       |    213 | https://en.wikipedia.org/wiki/List_of_RAL_colors            |
 | Resene    |    759 | http://www.resene.co.nz                                     |
 | Monokai   |     17 |                                                             |
 
