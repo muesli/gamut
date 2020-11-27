@@ -153,12 +153,12 @@ colors = gamut.Blends(color1, color2, 8)
 
 ## Palettes
 
-Gamut comes with four curated color palettes: Wikipedia, Crayola, Resene and
-Monokai. The Wikipedia palette is an import of common colors from Wikipedia’s
-List of Colors. Similarly Crayola consists of colors resembling the palette of
-Crayola drawing crayons, while Resene refers to the color palette of the paint
-manufacturer. New curated palettes and importers are welcome. Send me a pull
-request!
+Gamut comes with five curated color palettes: Wikipedia, Crayola, RAL, Resene,
+and Monokai. The Wikipedia palette is an import of common colors from
+Wikipedia’s List of Colors. Similarly Crayola consists of colors resembling the
+palette of Crayola drawing crayons, while Resene refers to the color palette of
+the paint manufacturer. New curated palettes and importers are welcome. Send me
+a pull request!
 
 | Name      | Colors | Source                                                      |
 | --------- | -----: | ----------------------------------------------------------- |
