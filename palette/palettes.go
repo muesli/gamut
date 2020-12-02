@@ -17,6 +17,8 @@ var (
 	Resene gamut.Palette
 	// RAL Palette
 	RAL gamut.Palette
+	// CSS Named Color Palette
+	CSS gamut.Palette
 )
 
 // AllPalettes returns a mix of all palettes defined in gamut
@@ -2823,4 +2825,6 @@ func init() {
 			{"Pearl light grey", gamut.Hex("#9C9C9C"), "9022"},
 			{"Pearl dark grey", gamut.Hex("#828282"), "9023"},
 		})
+
+	CSS.AddColors(cssNamedColors())
 }
