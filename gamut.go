@@ -12,6 +12,7 @@ import (
 // A Palette is a collection of colors
 type Palette struct {
 	colors map[color.Color]Colors
+	names  map[string]color.Color
 }
 
 // MixedWith mixes two palettes
@@ -27,6 +28,9 @@ func (g *Palette) AddColors(cc Colors) {
 	if g.colors == nil {
 		g.colors = make(map[color.Color]Colors)
 	}
+	if g.names == nil {
+		g.names = make(map[string]color.Color)
+	}
 
 	for _, c := range cc {
 		found := false
@@ -40,6 +44,8 @@ func (g *Palette) AddColors(cc Colors) {
 		if !found {
 			g.colors[c.Color] = append(g.colors[c.Color], c)
 		}
+
+		g.names[c.Name] = c.Color
 	}
 }
 
@@ -61,6 +67,12 @@ func (g Palette) Clamped(cc []color.Color) Colors {
 		r = append(r, nm[0])
 	}
 	return r
+}
+
+// Color returns the color with a specific name
+func (g Palette) Color(name string) (color.Color, bool) {
+	c, ok := g.names[name]
+	return c, ok
 }
 
 // Name returns the name of the closest matching color
