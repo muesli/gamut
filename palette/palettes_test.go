@@ -88,3 +88,21 @@ func TestFilter(t *testing.T) {
 		t.Errorf("Expected %d results, got %d", exp, len(cc))
 	}
 }
+
+func TestColor(t *testing.T) {
+	c, ok := Wikipedia.Color("Pastel blue")
+	if !ok {
+		t.Errorf("Expected ok to be true")
+	}
+
+	exp, _ := colorful.Hex("#aec6cf")
+	cc, _ := colorful.MakeColor(c)
+	if exp.Hex() != cc.Hex() {
+		t.Errorf("Expected %s, got %s", exp.Hex(), cc.Hex())
+	}
+
+	_, ok = Wikipedia.Color("Foobar red")
+	if ok {
+		t.Errorf("Expected ok to be false")
+	}
+}

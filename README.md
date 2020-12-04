@@ -201,6 +201,12 @@ all “blue” colors in the Wikipedia palette:
 colors = palette.Wikipedia.Filter("blue")
 ```
 
+You can access a color with a specific name using the `Color` function:
+
+```go
+color, ok = palette.Wikipedia.Color("Pastel blue")
+```
+
 Calling a palette’s `Name` function with a given color returns the name & distance
 of the closest (perceptually) matching color in it:
 
