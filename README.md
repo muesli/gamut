@@ -153,20 +153,19 @@ colors = gamut.Blends(color1, color2, 8)
 
 ## Palettes
 
-Gamut comes with five curated color palettes: Wikipedia, Crayola, RAL, Resene,
-and Monokai. The Wikipedia palette is an import of common colors from
-Wikipedia’s List of Colors. Similarly Crayola consists of colors resembling the
-palette of Crayola drawing crayons, while Resene refers to the color palette of
-the paint manufacturer. New curated palettes and importers are welcome. Send me
+Gamut comes with six curated color palettes: Wikipedia, Crayola, CSS, RAL,
+Resene, and Monokai. The Wikipedia palette is an import of common colors from
+Wikipedia’s List of Colors. New curated palettes and importers are welcome. Send me
 a pull request!
 
-| Name      | Colors | Source                                                      |
-| --------- | -----: | ----------------------------------------------------------- |
-| Wikipedia |   1609 | https://en.wikipedia.org/wiki/List_of_colors_(compact)      |
-| Crayola   |    180 | https://en.wikipedia.org/wiki/List_of_Crayola_crayon_colors |
-| RAL       |    213 | https://en.wikipedia.org/wiki/List_of_RAL_colors            |
-| Resene    |    759 | http://www.resene.co.nz                                     |
-| Monokai   |     17 |                                                             |
+| Name      | Colors | Source                                                       |
+| --------- | -----: | ------------------------------------------------------------ |
+| Wikipedia |   1609 | https://en.wikipedia.org/wiki/List_of_colors_(compact)       |
+| Crayola   |    180 | https://en.wikipedia.org/wiki/List_of_Crayola_crayon_colors  |
+| CSS       |    147 | https://developer.mozilla.org/en-US/docs/Web/CSS/color_value |
+| RAL       |    213 | https://en.wikipedia.org/wiki/List_of_RAL_colors             |
+| Resene    |    759 | http://www.resene.co.nz                                      |
+| Monokai   |     17 |                                                              |
 
 The function Colors lets you retrieve all colors in a palette:
 
