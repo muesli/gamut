@@ -45,7 +45,7 @@ func (g *Palette) AddColors(cc Colors) {
 			g.colors[c.Color] = append(g.colors[c.Color], c)
 		}
 
-		g.names[c.Name] = c.Color
+		g.names[strings.ToUpper(c.Name)] = c.Color
 	}
 }
 
@@ -71,7 +71,7 @@ func (g Palette) Clamped(cc []color.Color) Colors {
 
 // Color returns the color with a specific name
 func (g Palette) Color(name string) (color.Color, bool) {
-	c, ok := g.names[name]
+	c, ok := g.names[strings.ToUpper(name)]
 	return c, ok
 }
 
