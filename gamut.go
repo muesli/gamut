@@ -9,10 +9,29 @@ import (
 	"github.com/xrash/smetrics"
 )
 
+//Case insensitive wrapper for Palette names
+type ciMap struct {
+	m map[string]color.Color
+}
+
+func newciMap() ciMap {
+	return ciMap{m: make(map[string]color.Color)}
+}
+
+//Getters and setters to avoid directly accessing the nested map
+func (m ciMap) get(s string) (c color.Color, ok bool) {
+	c, ok = m.m[strings.ToUpper(s)]
+	return
+}
+
+func (m ciMap) set(s string, c color.Color) {
+	m.m[strings.ToUpper(s)] = c
+}
+
 // A Palette is a collection of colors
 type Palette struct {
 	colors map[color.Color]Colors
-	names  map[string]color.Color
+	names  ciMap
 }
 
 // MixedWith mixes two palettes
@@ -28,8 +47,8 @@ func (g *Palette) AddColors(cc Colors) {
 	if g.colors == nil {
 		g.colors = make(map[color.Color]Colors)
 	}
-	if g.names == nil {
-		g.names = make(map[string]color.Color)
+	if g.names.m == nil {
+		g.names = newciMap()
 	}
 
 	for _, c := range cc {
@@ -45,7 +64,7 @@ func (g *Palette) AddColors(cc Colors) {
 			g.colors[c.Color] = append(g.colors[c.Color], c)
 		}
 
-		g.names[c.Name] = c.Color
+		g.names.set(c.Name, c.Color)
 	}
 }
 
@@ -71,7 +90,7 @@ func (g Palette) Clamped(cc []color.Color) Colors {
 
 // Color returns the color with a specific name
 func (g Palette) Color(name string) (color.Color, bool) {
-	c, ok := g.names[name]
+	c, ok := g.names.get(name)
 	return c, ok
 }
 

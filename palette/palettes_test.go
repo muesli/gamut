@@ -13,16 +13,16 @@ func TestDistance(t *testing.T) {
 		Hex string
 		Exp string
 	}{
-		{"#FFBF00", "amber"},
-		{"#FFBE00", "amber"},
-		{"#FA6E79", "begonia"},
-		{"#FB6E79", "begonia"},
-		{"#0095B6", "bondi blue"},
-		{"#0095B7", "bondi blue"},
-		{"#F92672", "neon pink"},
-		{"#AE81FF", "medium purple"},
-		{"#66D9EF", "sky blue (crayola)"},
-		{"#E6DB74", "straw"},
+		{"#FFBF00", "Amber"},
+		{"#FFBE00", "Amber"},
+		{"#FA6E79", "Begonia"},
+		{"#FB6E79", "Begonia"},
+		{"#0095B6", "Bondi blue"},
+		{"#0095B7", "Bondi blue"},
+		{"#F92672", "Neon pink"},
+		{"#AE81FF", "Medium purple"},
+		{"#66D9EF", "Sky blue (Crayola)"},
+		{"#E6DB74", "Straw"},
 	}
 
 	for _, test := range tt {
@@ -68,8 +68,7 @@ func TestMixing(t *testing.T) {
 
 	p = Wikipedia.MixedWith(Crayola)
 	c = len(p.Colors())
-	//exp = 1766 // some Crayola colors are duped in the Wikipedia palette
-	exp = 1739 // more namespace collisions, due to wikipedia's capitalizing the first world while Crayola capitalizes all words.
+	exp = 1766 // some Crayola colors are duped in the Wikipedia palette
 	if c != exp {
 		t.Errorf("Expected %d colors in palette mix, got %d", exp, c)
 	}
@@ -91,7 +90,7 @@ func TestFilter(t *testing.T) {
 }
 
 func TestColor(t *testing.T) {
-	c, ok := Wikipedia.Color("pastel blue")
+	c, ok := Wikipedia.Color("Pastel blue")
 	if !ok {
 		t.Errorf("Expected ok to be true")
 	}
@@ -102,7 +101,7 @@ func TestColor(t *testing.T) {
 		t.Errorf("Expected %s, got %s", exp.Hex(), cc.Hex())
 	}
 
-	_, ok = Wikipedia.Color("foobar red")
+	_, ok = Wikipedia.Color("Foobar red")
 	if ok {
 		t.Errorf("Expected ok to be false")
 	}

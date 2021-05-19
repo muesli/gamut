@@ -129,6 +129,18 @@ func TestColor(t *testing.T) {
 		t.Errorf("Expected %s, got %s", exp.Hex(), cc.Hex())
 	}
 
+	//Test case insensitivity
+	c, ok = p1.Color("spray")
+	if !ok {
+		t.Errorf("Expected ok to be true")
+	}
+
+	exp, _ = colorful.Hex("#66d9ef")
+	cc, _ = colorful.MakeColor(c)
+	if exp.Hex() != cc.Hex() {
+		t.Errorf("Expected %s, got %s", exp.Hex(), cc.Hex())
+	}
+
 	_, ok = p1.Color("Foobar red")
 	if ok {
 		t.Errorf("Expected ok to be false")
