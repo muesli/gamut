@@ -28,6 +28,12 @@ color = gamut.Hex("#ABCDEF")
 
 Both the short and standard formats are supported.
 
+Conversely you can retrieve the hex encoding of any `color.Color` value:
+
+```go
+hex = gamut.ToHex(color)
+```
+
 ### Around the Color Wheel
 
 The `Darker` and `Lighter` functions darken and lighten respectively a given

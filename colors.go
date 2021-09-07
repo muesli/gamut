@@ -16,10 +16,16 @@ type Color struct {
 // Colors is a slice of colors
 type Colors []Color
 
-// Hex returns the color encoded by a hex-string, e.g. "#ABCDEF"
+// Hex returns the color encoded by a hex-string, e.g. "#ABCDEF".
 func Hex(s string) color.Color {
 	c, _ := colorful.Hex(s)
 	return c
+}
+
+// ToHex returns the hex encoding of a color, e.g. "#ABCDEF".
+func ToHex(c color.Color) string {
+	cc, _ := colorful.MakeColor(c)
+	return cc.Hex()
 }
 
 // HueOffset returns color with a different hue angle
