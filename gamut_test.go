@@ -42,6 +42,15 @@ func init() {
 		})
 }
 
+func TestHex(t *testing.T) {
+	exp := "#66d9ef"
+	c := Hex(exp)
+
+	if ToHex(c) != exp {
+		t.Errorf("Expected %s, got %s", exp, ToHex(c))
+	}
+}
+
 func TestDistance(t *testing.T) {
 	tt := []struct {
 		Hex string
