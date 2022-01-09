@@ -293,3 +293,10 @@ color = theme.MonokaiTheme.Role(theme.Foreground)
 
 Available roles are `Foreground`, `Background`, `Base`, `AlternateBase`, `Text`,
 `Selection`, `Highlight`.
+
+## Feedback
+
+Got some feedback or suggestions? Please open an issue or drop me a note!
+
+* [Twitter](https://twitter.com/mueslix)
+* [The Fediverse](https://mastodon.social/@fribbledom)
