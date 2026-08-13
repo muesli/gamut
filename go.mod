@@ -1,6 +1,6 @@
 module github.com/muesli/gamut
 
-go 1.15
+go 1.21
 
 require (
 	github.com/lucasb-eyer/go-colorful v1.2.0
