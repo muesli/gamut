@@ -3,7 +3,6 @@
 [![Latest Release](https://img.shields.io/github/release/muesli/gamut.svg)](https://github.com/muesli/gamut/releases)
 [![Build Status](https://github.com/muesli/gamut/workflows/build/badge.svg)](https://github.com/muesli/gamut/actions)
 [![Coverage Status](https://coveralls.io/repos/github/muesli/gamut/badge.svg?branch=master)](https://coveralls.io/github/muesli/gamut?branch=master)
-[![Go ReportCard](https://goreportcard.com/badge/muesli/gamut)](https://goreportcard.com/report/muesli/gamut)
 [![GoDoc](https://godoc.org/github.com/golang/gddo?status.svg)](https://pkg.go.dev/github.com/muesli/gamut)
 
 Go package to generate and manage color palettes & schemes
