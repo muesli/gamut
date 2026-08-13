@@ -12,7 +12,7 @@ import (
 // A ColorGenerator checks whether a point in the three dimensional CIELab space
 // is suitable for color generation.
 type ColorGenerator interface {
-	Valid(col colorful.Color) bool
+	Valid(col color.Color) bool
 	Granularity() (l, c float64)
 }
 
@@ -67,12 +67,13 @@ func distanceDegrees(a1, a2 float64) float64 {
 }
 
 // Valid returns true if the given color has a similar hue as the original color
-func (gen SimilarHueGenerator) Valid(col colorful.Color) bool {
+func (gen SimilarHueGenerator) Valid(col color.Color) bool {
 	cf, _ := colorful.MakeColor(gen.Color)
-	h, c, l := cf.Hcl()
-	hc, cc, lc := col.Hcl()
+	c, _ := colorful.MakeColor(col)
+	h, ch, l := cf.Hcl()
+	hc, cc, lc := c.Hcl()
 
-	if cc < c-0.35 || cc > c+0.35 {
+	if cc < ch-0.35 || cc > ch+0.35 {
 		return false
 	}
 	if lc < l-0.6 || lc > l+0.6 {
@@ -81,7 +82,7 @@ func (gen SimilarHueGenerator) Valid(col colorful.Color) bool {
 	if distanceDegrees(h, hc) > 7 {
 		return false
 	}
-	if cf.DistanceCIE94(col) > 0.2 {
+	if cf.DistanceCIE94(c) > 0.2 {
 		return false
 	}
 
@@ -89,20 +90,23 @@ func (gen SimilarHueGenerator) Valid(col colorful.Color) bool {
 }
 
 // Valid returns true if the color is considered a "warm" color
-func (cc WarmGenerator) Valid(col colorful.Color) bool {
-	_, c, l := col.Hcl()
-	return 0.1 <= c && c <= 0.4 && 0.2 <= l && l <= 0.5
+func (cc WarmGenerator) Valid(col color.Color) bool {
+	c, _ := colorful.MakeColor(col)
+	_, ch, l := c.Hcl()
+	return 0.1 <= ch && ch <= 0.4 && 0.2 <= l && l <= 0.5
 }
 
 // Valid returns true if the color is considered a "happy" color
-func (cc HappyGenerator) Valid(col colorful.Color) bool {
-	_, c, l := col.Hcl()
-	return 0.3 <= c && 0.4 <= l && l <= 0.8
+func (cc HappyGenerator) Valid(col color.Color) bool {
+	c, _ := colorful.MakeColor(col)
+	_, ch, l := c.Hcl()
+	return 0.3 <= ch && 0.4 <= l && l <= 0.8
 }
 
 // Valid returns true if the color is considered a "pastel" color
-func (cc PastelGenerator) Valid(col colorful.Color) bool {
-	_, s, v := col.Hsv()
+func (cc PastelGenerator) Valid(col color.Color) bool {
+	c, _ := colorful.MakeColor(col)
+	_, s, v := c.Hsv()
 	return 0.2 <= s && s <= 0.4 && 0.7 <= v && v <= 1.0
 }
 
