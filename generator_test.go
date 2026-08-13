@@ -1,6 +1,7 @@
 package gamut
 
 import (
+	"image/color"
 	"testing"
 
 	colorful "github.com/lucasb-eyer/go-colorful"
@@ -10,8 +11,9 @@ type TestColorGenerator struct {
 	BroadGranularity
 }
 
-func (cc TestColorGenerator) Valid(col colorful.Color) bool {
-	l, _, _ := col.Lab()
+func (cc TestColorGenerator) Valid(col color.Color) bool {
+	c, _ := colorful.MakeColor(col)
+	l, _, _ := c.Lab()
 	return 0.4 <= l && l <= 0.6
 }
 
