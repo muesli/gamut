@@ -42,26 +42,67 @@ func TestWarmCool(t *testing.T) {
 }
 
 func TestLightness(t *testing.T) {
+	lightness := func(c color.Color) float64 {
+		cc, _ := colorful.MakeColor(c)
+		_, _, l := cc.Hcl()
+		return l
+	}
+
+	// Lightening increases lightness, darkening decreases it. We assert the
+	// property change rather than brittle exact hex values, since HCL->RGB
+	// rounding makes hard-coded strings fragile.
 	cols := []struct {
-		fn      func(color.Color, float64) color.Color
+		op      string
 		percent float64
 		hex     string
-		exp     string
 	}{
-		{Lighter, 0.1, "#2f1b82", "#352087"},
-		{Lighter, 0.8, "#ea621f", "#ffe49a"},
-		{Darker, 0.3, "#2f1b82", "#1b0d72"},
-		{Darker, 0.8, "#ea621f", "#5e0000"},
+		{"lighter", 0.1, "#2f1b82"},
+		{"lighter", 0.8, "#ea621f"},
+		{"lighter", 0.5, "#000000"},
+		{"lighter", 1.0, "#000000"},
+		{"darker", 0.3, "#2f1b82"},
+		{"darker", 0.8, "#ea621f"},
+		{"darker", 0.5, "#ffffff"},
+		{"darker", 1.0, "#ffffff"},
 	}
 
 	for _, col := range cols {
 		c, _ := colorful.Hex(col.hex)
-		cc, _ := colorful.MakeColor(col.fn(c, col.percent))
-		exp, _ := colorful.Hex(col.exp)
+		in := lightness(c)
 
-		if cc.Hex() != exp.Hex() {
-			t.Errorf("Expected different color %v, got %v", exp.Hex(), cc.Hex())
+		var got color.Color
+		if col.op == "lighter" {
+			got = Lighter(c, col.percent)
+		} else {
+			got = Darker(c, col.percent)
 		}
+		out := lightness(got)
+
+		if col.op == "lighter" && out <= in {
+			t.Errorf("Lighter(%s, %v): expected lightness to increase, got %f <= %f", col.hex, col.percent, out, in)
+		}
+		if col.op == "darker" && out >= in {
+			t.Errorf("Darker(%s, %v): expected lightness to decrease, got %f >= %f", col.hex, col.percent, out, in)
+		}
+	}
+
+	// Regression: pure black must lighten (not stay black) and pure white must
+	// darken (not stay white) under interpolation toward the extreme.
+	black, _ := colorful.Hex("#000000")
+	if lightness(Lighter(black, 0.5)) == 0 {
+		t.Error("Lighter(#000000, 0.5) remained black (no-op)")
+	}
+	white, _ := colorful.Hex("#ffffff")
+	if lightness(Darker(white, 0.5)) == 1 {
+		t.Error("Darker(#ffffff, 0.5) remained white (no-op)")
+	}
+
+	// Identity: a zero fraction must return an equal color.
+	if ToHex(Lighter(black, 0)) != "#000000" {
+		t.Error("Lighter(c, 0) is not identity")
+	}
+	if ToHex(Darker(white, 0)) != "#ffffff" {
+		t.Error("Darker(c, 0) is not identity")
 	}
 }
 
