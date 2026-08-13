@@ -87,6 +87,18 @@ func TestClamped(t *testing.T) {
 	}
 }
 
+func TestClampedEmptyPalette(t *testing.T) {
+	// An empty palette must not panic when clamping colors: Name() returns an
+	// empty Colors slice, and indexing it would be out of range.
+	var empty Palette
+	cc := []color.Color{Hex("#66D9EE"), Hex("#3F3D32")}
+
+	got := empty.Clamped(cc)
+	if len(got) != 0 {
+		t.Errorf("Expected 0 clamped colors for an empty palette, got %d", len(got))
+	}
+}
+
 func TestColors(t *testing.T) {
 	c := len(p1.Colors())
 	exp := 9
