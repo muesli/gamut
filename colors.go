@@ -161,18 +161,22 @@ func Warm(c color.Color) bool {
 	return !Cool(c)
 }
 
-// Lighter returns a lighter version of the specified color
+// Lighter returns a lighter version of the specified color, interpolating its
+// lightness toward white (1.0) by the given fraction in [0,1].
 func Lighter(c color.Color, percent float64) color.Color {
 	col, _ := colorful.MakeColor(c)
 	h, cv, l := col.Hcl()
 
-	return colorful.Hcl(h, cv, l+(l*percent)).Clamped()
+	nl := l + (1.0-l)*percent
+	return colorful.Hcl(h, cv, nl).Clamped()
 }
 
-// Darker returns a darker version of the specified color
+// Darker returns a darker version of the specified color, interpolating its
+// lightness toward black (0.0) by the given fraction in [0,1].
 func Darker(c color.Color, percent float64) color.Color {
 	col, _ := colorful.MakeColor(c)
 	h, cv, l := col.Hcl()
 
-	return colorful.Hcl(h, cv, l-(l*percent)).Clamped()
+	nl := l * (1.0 - percent)
+	return colorful.Hcl(h, cv, nl).Clamped()
 }
