@@ -2,6 +2,7 @@ package gamut
 
 import (
 	"image/color"
+	"math"
 
 	colorful "github.com/lucasb-eyer/go-colorful"
 )
@@ -33,11 +34,9 @@ func HueOffset(c color.Color, degrees int) color.Color {
 	col, _ := colorful.MakeColor(c)
 
 	h, s, v := col.Hsv()
-	h += float64(degrees)
+	h = math.Mod(h+float64(degrees), 360.0)
 	if h < 0 {
-		h += 360
-	} else if h >= 360 {
-		h -= 360
+		h += 360.0
 	}
 
 	return colorful.Hsv(h, s, v).Clamped()

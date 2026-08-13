@@ -7,6 +7,20 @@ import (
 	colorful "github.com/lucasb-eyer/go-colorful"
 )
 
+func TestHueOffsetNormalization(t *testing.T) {
+	c := Hex("#ff0000") // hue 0
+
+	// Large offsets must still produce a hue within 0 and 360. A single +/-360
+	// wrap only normalizes offsets in (-360, 360).
+	for _, deg := range []int{180, 360, 400, -400, 720, -720, 900} {
+		got, _ := colorful.MakeColor(HueOffset(c, deg))
+		h, _, _ := got.Hsv()
+		if h < 0 || h >= 360 {
+			t.Errorf("HueOffset(%d) yielded out-of-range hue %f (want 0-360)", deg, h)
+		}
+	}
+}
+
 func TestWarmCool(t *testing.T) {
 	cols := []struct {
 		hex  string
