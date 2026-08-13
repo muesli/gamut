@@ -1,6 +1,6 @@
 github.com/golang/freetype v0.0.0-20170609003504-e2365dfdc4a0/go.mod h1:E/TSTwGwJL78qG/PmXZO1EjYhfJinVAhrmmHX6Z8B9k=
-github.com/lucasb-eyer/go-colorful v1.2.0 h1:1nnpGOrhyZZuNyfu1QjKiUICQ74+3FNCN69Aj6K7nkY=
-github.com/lucasb-eyer/go-colorful v1.2.0/go.mod h1:R4dSotOR9KMtayYi1e77YzuveK+i7ruzyGqttikkLy0=
+github.com/lucasb-eyer/go-colorful v1.4.1 h1:1EO+WB73+EH8EVbzlrG3KLAfEypQWVHIBqlTf+2hNss=
+github.com/lucasb-eyer/go-colorful v1.4.1/go.mod h1:R4dSotOR9KMtayYi1e77YzuveK+i7ruzyGqttikkLy0=
 github.com/muesli/clusters v0.0.0-20180605185049-a07a36e67d36/go.mod h1:mw5KDqUj0eLj/6DUNINLVJNoPTFkEuGMHtJsXLviLkY=
 github.com/muesli/clusters v0.0.0-20200529215643-2700303c1762 h1:p4A2Jx7Lm3NV98VRMKlyWd3nqf8obft8NfXlAUmqd3I=
 github.com/muesli/clusters v0.0.0-20200529215643-2700303c1762/go.mod h1:mw5KDqUj0eLj/6DUNINLVJNoPTFkEuGMHtJsXLviLkY=
