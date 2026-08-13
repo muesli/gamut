@@ -59,11 +59,15 @@ func (g Palette) Colors() Colors {
 }
 
 // Clamped expects a slice of colors and returns a slice of the nearest matching
-// colors from the palette
+// colors from the palette. Colors for which no match can be found (e.g. an
+// empty palette) are skipped.
 func (g Palette) Clamped(cc []color.Color) Colors {
 	var r Colors
 	for _, c := range cc {
 		nm, _ := g.Name(c)
+		if len(nm) == 0 {
+			continue
+		}
 		r = append(r, nm[0])
 	}
 	return r
