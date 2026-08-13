@@ -87,6 +87,34 @@ func TestClamped(t *testing.T) {
 	}
 }
 
+func TestPaletteCloneDetached(t *testing.T) {
+	// A plain value copy of a Palette shares its interior maps. The canonical
+	// way to obtain an independent copy is Clone().
+	p := Palette{}
+	p.AddColors(Colors{{Name: "red", Color: Hex("#ff0000")}})
+
+	// Plain value copy aliases the original (intentional, documented behavior).
+	alias := p
+	alias.AddColors(Colors{{Name: "blue", Color: Hex("#0000ff")}})
+	if len(p.Colors()) != 2 {
+		t.Errorf("plain value copy is expected to alias: original should see 2 colors, got %d", len(p.Colors()))
+	}
+
+	// Clone() must be fully independent, even for a shared color key.
+	cp := p.Clone()
+	cp.AddColors(Colors{{Name: "red2", Color: Hex("#ff0000")}})
+
+	if len(p.Colors()) != 2 {
+		t.Errorf("original palette mutated via Clone: expected 2 colors, got %d", len(p.Colors()))
+	}
+	if _, ok := p.Color("red2"); ok {
+		t.Error("original palette unexpectedly contains 'red2' after clone was modified")
+	}
+	if len(cp.Colors()) != 3 {
+		t.Errorf("clone palette expected 3 colors, got %d", len(cp.Colors()))
+	}
+}
+
 func TestClampedEmptyPalette(t *testing.T) {
 	// An empty palette must not panic when clamping colors: Name() returns an
 	// empty Colors slice, and indexing it would be out of range.

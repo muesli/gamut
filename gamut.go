@@ -2,6 +2,7 @@ package gamut
 
 import (
 	"image/color"
+	"maps"
 	"sort"
 	"strings"
 
@@ -9,13 +10,13 @@ import (
 	"github.com/xrash/smetrics"
 )
 
-// A Palette is a collection of colors
+// A Palette is a collection of colors.
 type Palette struct {
 	colors map[color.Color]Colors
 	names  map[string]color.Color
 }
 
-// MixedWith mixes two palettes
+// MixedWith mixes two palettes.
 func (g Palette) MixedWith(p Palette) Palette {
 	np := Palette{}
 	np.AddColors(g.Colors())
@@ -23,7 +24,20 @@ func (g Palette) MixedWith(p Palette) Palette {
 	return np
 }
 
-// AddColors adds colors to the palette
+// Clone returns an independent copy of the palette. A plain value copy of a
+// Palette shares its interior maps, so mutating the copy would affect the
+// original. Clone detaches those maps (and the per-key Colors slices) so the
+// result can be mutated freely.
+func (g Palette) Clone() Palette {
+	colors := make(map[color.Color]Colors, len(g.colors))
+	for k, v := range g.colors {
+		colors[k] = append(Colors{}, v...)
+	}
+	names := maps.Clone(g.names)
+	return Palette{colors: colors, names: names}
+}
+
+// AddColors adds colors to the palette.
 func (g *Palette) AddColors(cc Colors) {
 	if g.colors == nil {
 		g.colors = make(map[color.Color]Colors)
@@ -49,7 +63,7 @@ func (g *Palette) AddColors(cc Colors) {
 	}
 }
 
-// Colors returns the Palette's colors
+// Colors returns the Palette's colors.
 func (g Palette) Colors() Colors {
 	var r Colors
 	for _, c := range g.colors {
@@ -73,13 +87,13 @@ func (g Palette) Clamped(cc []color.Color) Colors {
 	return r
 }
 
-// Color returns the color with a specific name
+// Color returns the color with a specific name.
 func (g Palette) Color(name string) (color.Color, bool) {
 	c, ok := g.names[strings.ToUpper(name)]
 	return c, ok
 }
 
-// Name returns the name of the closest matching color
+// Name returns the name of the closest matching color.
 func (g Palette) Name(color color.Color) (Colors, float64) {
 	var d float64 = -1
 	var m Colors
@@ -98,7 +112,7 @@ func (g Palette) Name(color color.Color) (Colors, float64) {
 	return m, d
 }
 
-// Filter returns colors matching name
+// Filter returns colors matching name.
 func (g Palette) Filter(name string) Colors {
 	s := strings.ToLower(name)
 	var c Colors
