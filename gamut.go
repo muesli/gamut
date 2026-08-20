@@ -125,7 +125,10 @@ func (g Palette) Filter(name string) Colors {
 		}
 	}
 
-	sort.Slice(c, func(i, j int) bool {
+	sort.SliceStable(c, func(i, j int) bool {
+		if c[i].Name == c[j].Name {
+			return ToHex(c[i].Color) < ToHex(c[j].Color)
+		}
 		di := smetrics.WagnerFischer(strings.ToLower(c[i].Name), s, 1, 1, 2)
 		dj := smetrics.WagnerFischer(strings.ToLower(c[j].Name), s, 1, 1, 2)
 		return di < dj
