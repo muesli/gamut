@@ -2,6 +2,7 @@ package palette
 
 import (
 	"image/color"
+	"strings"
 	"testing"
 
 	colorful "github.com/lucasb-eyer/go-colorful"
@@ -68,7 +69,7 @@ func TestMixing(t *testing.T) {
 
 	p = Wikipedia.MixedWith(Crayola)
 	c = len(p.Colors())
-	exp = 1766 // some Crayola colors are duped in the Wikipedia palette
+	exp = 1752 // some Crayola colors are duped in the Wikipedia palette
 	if c != exp {
 		t.Errorf("Expected %d colors in palette mix, got %d", exp, c)
 	}
@@ -106,3 +107,56 @@ func TestColor(t *testing.T) {
 		t.Errorf("Expected ok to be false")
 	}
 }
+
+func TestWikipediaNoDuplicateColors(t *testing.T) {
+	seen := make(map[string]gamut.Color)
+	for _, c := range Wikipedia.Colors() {
+		name := strings.ToUpper(c.Name)
+		if prev, ok := seen[name]; ok {
+			t.Errorf("Duplicate color name in palette.Wikipedia: %q (%v and %v)", c.Name, prev.Color, c.Color)
+		}
+		seen[name] = c
+	}
+}
+
+func TestWikipediaColorsDeterministic(t *testing.T) {
+	colors := []string{
+		"Bronze",
+		"Chinese red",
+		"Dark imperial blue",
+		"Lemon lime",
+		"Midnight blue",
+		"Neon green",
+		"Orange Soda",
+		"Peach",
+		"Royal blue",
+		"Royal red",
+		"Scarlet",
+		"Tea rose",
+		"Vermilion",
+		"Violet-red",
+	}
+
+	for _, name := range colors {
+		expected, ok := Wikipedia.Color(name)
+		if !ok {
+			t.Fatalf("expected %q to exist in palette.Wikipedia", name)
+		}
+
+		for i := 0; i < 50; i++ {
+			res := Wikipedia.Filter(name)
+			if len(res) == 0 {
+				t.Fatalf("expected at least 1 color matching %q", name)
+			}
+			if !strings.EqualFold(res[0].Name, name) {
+				t.Errorf("expected first match to be %q, got %q", name, res[0].Name)
+			}
+			c1, _ := colorful.MakeColor(res[0].Color)
+			c2, _ := colorful.MakeColor(expected)
+			if c1.Hex() != c2.Hex() {
+				t.Fatalf("color %q iteration %d: expected %s, got %s", name, i, c2.Hex(), c1.Hex())
+			}
+		}
+	}
+}
+
