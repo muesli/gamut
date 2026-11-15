@@ -3,6 +3,7 @@ on: [push, pull_request]
 
 jobs:
   coverage:
+    if: github.server_url == 'https://github.com'
     strategy:
       matrix:
         go-version: [^1]
