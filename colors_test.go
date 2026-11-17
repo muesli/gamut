@@ -65,6 +65,26 @@ func TestLightness(t *testing.T) {
 	}
 }
 
+func TestDarkerClamping(t *testing.T) {
+	// Test on black and very dark colors to ensure Darker() never returns a lighter color or increases lightness
+	darkColors := []string{"#000000", "#010101", "#050505", "#101010"}
+	for _, hex := range darkColors {
+		c, _ := colorful.Hex(hex)
+		_, _, lOrig := c.Hcl()
+
+		darkerC := Darker(c, 0.5)
+		cc, _ := colorful.MakeColor(darkerC)
+		_, _, lDark := cc.Hcl()
+
+		if lDark > lOrig {
+			t.Errorf("Darker(%s, 0.5) resulted in a lighter color with lightness %f > original lightness %f", hex, lDark, lOrig)
+		}
+		if lDark < -1e-9 {
+			t.Errorf("Darker(%s, 0.5) resulted in negative lightness %f", hex, lDark)
+		}
+	}
+}
+
 func TestComplementary(t *testing.T) {
 	cols := []struct {
 		hex           string

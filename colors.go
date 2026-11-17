@@ -174,5 +174,11 @@ func Darker(c color.Color, percent float64) color.Color {
 	col, _ := colorful.MakeColor(c)
 	h, cv, l := col.Hcl()
 
-	return colorful.Hcl(h, cv, l-(l*percent)).Clamped()
+	newL := l - (l * percent)
+	if newL < 0 {
+		newL = 0
+	}
+
+	res := colorful.Hcl(h, cv, newL)
+	return res.Clamped()
 }
